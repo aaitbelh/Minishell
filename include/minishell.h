@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/01 20:55:28 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/02 11:36:14 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <unistd.h>
-void rl_replace_line(char *text, int clear_undo);
+# include <signal.h>
 
+void rl_replace_line(char *text, int clear_undo);
 
 # endif
