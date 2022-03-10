@@ -6,11 +6,11 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/02 13:41:49 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/10 14:27:37 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "../include/minishell.h"
 
 char **cpy_env(char **str)
 {
@@ -28,7 +28,7 @@ char **cpy_env(char **str)
 	while(str[i])
 	{
 		j = 0;
-		table[i] = malloc(sizeof(char ) *  ft_strlen(str[i]));
+		table[i] = malloc(sizeof(char ) *  strlen(str[i]));
 		while(str[i][j])
 		{
 			table[i][j] = str[i][j];

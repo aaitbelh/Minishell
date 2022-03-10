@@ -6,16 +6,16 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/02 13:55:32 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/10 14:27:23 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
-void tets(void)
-{
-	t_data
-}
+// void tets(void)
+// {
+// 	t_data
+// }
 
 void	handler(int sig)
 {
@@ -31,11 +31,12 @@ int main(int ac , char **av, char **env)
 {
 	(void)ac;
 	(void)av;
+	(void)env;
 	char *str;
 	struct sigaction	sa;
 	struct sigaction	sb;
 
-	g_data.ev = cpy_env(env);
+	// g_data.ev = cpy_env(env);
 	sa.sa_handler = &handler;
 	sb.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa, NULL);

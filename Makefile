@@ -1,8 +1,8 @@
 Name = minishell
 
-LIBFT = libft/libft.a
+LIBFT = libft/libft.a 
 
-SRCS = main.c
+SRCS = main.c src/tools.c
 
 OBJS = $(SRCS:.c=.o)
 
