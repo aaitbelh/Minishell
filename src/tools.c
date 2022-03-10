@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/02 13:55:14 by aaitbelh         ###   ########.fr       */
+/*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
+/*   Updated: 2022/03/02 13:41:49 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef MINISHELL_H
-# define MINISHELL_H
+#include "include/minishell.h"
 
-# include <stdio.h>
-# include <string.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <unistd.h>
-# include <signal.h>
-
-struct s_data g_data;
-
-typedef struct s_data
+char **cpy_env(char **str)
 {
-	char **ev;
-}	t_data;
+	char **table;
+	int	i;
+	int	j;
 
-char **cpy_env(char **str);
-
-# endif
+	i = 0;
+	while(str[i])
+		i++;
+	table = malloc(sizeof(char *) * i);
+	if(!table)
+		return (NULL);
+	i = 0;
+	while(str[i])
+	{
+		j = 0;
+		table[i] = malloc(sizeof(char ) *  ft_strlen(str[i]));
+		while(str[i][j])
+		{
+			table[i][j] = str[i][j];
+			j++;
+		}
+		i++;
+	}
+	return(table);
+}
