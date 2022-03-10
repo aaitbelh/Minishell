@@ -14,9 +14,9 @@ $(Name): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -lreadline -L/Users/alaajili/.brew/opt/readline/lib -I/Users/alaajili/.brew/opt/readline/include -o $(Name)
 
 clean :
-	rm -rf $(OBJS)
+	rm -f $(OBJS)
 
 fclean : clean
-	rm -rf $(Name)
+	rm -f $(Name)
 
 re : fclean all
