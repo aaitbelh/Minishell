@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/10 14:27:23 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/10 14:36:49 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int main(int ac , char **av, char **env)
 	struct sigaction	sa;
 	struct sigaction	sb;
 
-	// g_data.ev = cpy_env(env);
+	g_data.ev = cpy_env(env);
 	sa.sa_handler = &handler;
 	sb.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa, NULL);
