@@ -1,6 +1,6 @@
 Name = minishell
 
-SRCS = main.c src/tools.c
+SRCS = main.c srcs/tools.c srcs/ft_split.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -17,6 +17,6 @@ clean :
 	rm -f $(OBJS)
 
 fclean : clean
-	rm -f $(Name)
+	rm -rf $(Name)
 
 re : fclean all

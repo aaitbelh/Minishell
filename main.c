@@ -6,16 +6,11 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/10 14:36:49 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:50:13 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
-
-// void tets(void)
-// {
-// 	t_data
-// }
 
 void	handler(int sig)
 {
@@ -25,7 +20,6 @@ void	handler(int sig)
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
-
 
 int main(int ac , char **av, char **env)
 {
@@ -43,9 +37,11 @@ int main(int ac , char **av, char **env)
 	sigaction(SIGQUIT, &sb, NULL);
 	while(1)
 	{
-		str = readline("minishell$: ");
+		str = readline("minishell-$ ");
 		if(!str)
 			break;
+		g_data.cmds = ft_split(str, '|');
+		
 	}
 	return (0);
 }
