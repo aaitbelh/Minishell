@@ -6,46 +6,41 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/10 14:27:23 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/13 16:14:13 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
-// void tets(void)
-// {
-// 	t_data
-// }
-
-void	handler(int sig)
+void get_read_cmd()
 {
-	(void)sig;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	char *cmd_shell;
+	struct sigaction	sa;
+	sa.sa_handler = &handler;
+	sigaction(SIGINT, &sa, NULL);
+	while(1)
+	{
+		cmd_shell = readline("minishell$: ");
+		if(!cmd_shell || !strcmp(cmd_shell, "exit"))
+			ft_error_fd("exit", 0);
+		if(ft_strlen(cmd_shell) > 0)
+			add_history(cmd_shell);
+		else
+			free(cmd_shell);
+	}
 }
+
 
 
 int main(int ac , char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-	(void)env;
-	char *str;
-	struct sigaction	sa;
 	struct sigaction	sb;
 
-	// g_data.ev = cpy_env(env);
-	sa.sa_handler = &handler;
+	g_data.ev = cpy_env(env);
 	sb.sa_handler = SIG_IGN;
-	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sb, NULL);
-	while(1)
-	{
-		str = readline("minishell$: ");
-		if(!str)
-			break;
-	}
+	get_read_cmd();
 	return (0);
 }

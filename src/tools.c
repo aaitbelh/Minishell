@@ -6,11 +6,50 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/10 14:27:37 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/13 14:01:33 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+
+void	handler(int sig)
+{
+	(void)sig;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	rl_redisplay();
+}
+
+// int	check_is(char c, char *str)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while(str[i])
+// 	{
+// 		if(str[i] == c)
+// 			return (-1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+
+// int	is_there_space(char *str)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while(str[i])
+// 	{
+// 		if(check_is(str[i], " \t\n\v\f\r"))
+// 			return (-1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 char **cpy_env(char **str)
 {
@@ -28,13 +67,15 @@ char **cpy_env(char **str)
 	while(str[i])
 	{
 		j = 0;
-		table[i] = malloc(sizeof(char ) *  strlen(str[i]));
+		table[i] = malloc(sizeof(char ) *  strlen(str[i]) + 1);
 		while(str[i][j])
 		{
 			table[i][j] = str[i][j];
 			j++;
 		}
+		table[i][j] = '\0';
 		i++;
 	}
+	table[i] = NULL;
 	return(table);
 }
