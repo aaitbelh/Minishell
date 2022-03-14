@@ -8,10 +8,12 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra 
 
+SANITIZE = -fsanitize=address
+
 all : $(Name)
 
 $(Name): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -L/Users/alaajili/.brew/opt/readline/lib -I/Users/alaajili/.brew/opt/readline/include -o $(Name)
+	$(CC) $(CFLAGS) $(OBJS) -lreadline -L/Users/alaajili/.brew/opt/readline/lib -I/Users/alaajili/.brew/opt/readline/include -o $(Name) $(SANITIZE)
 
 clean :
 	rm -f $(OBJS)
