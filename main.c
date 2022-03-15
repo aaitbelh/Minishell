@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/13 16:14:13 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:25:49 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ void get_read_cmd()
 	while(1)
 	{
 		cmd_shell = readline("minishell$: ");
-		if(!cmd_shell || !strcmp(cmd_shell, "exit"))
+		if(!cmd_shell || !ft_strcmp(cmd_shell, "exit"))
 			ft_error_fd("exit", 0);
 		if(ft_strlen(cmd_shell) > 0)
 			add_history(cmd_shell);
-		else
+		if(is_there_space(cmd_shell))
 			free(cmd_shell);
+		// start_exec();
 	}
 }
 

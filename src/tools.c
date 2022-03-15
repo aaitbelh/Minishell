@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/13 14:01:33 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:00:04 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,37 @@ void	handler(int sig)
 	rl_redisplay();
 }
 
-// int	check_is(char c, char *str)
-// {
-// 	int i;
+int	check_is(char c, char *str)
+{
+	int i;
 
-// 	i = 0;
-// 	while(str[i])
-// 	{
-// 		if(str[i] == c)
-// 			return (-1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] == c)
+			return (-1);
+		i++;
+	}
+	return (0);
+}
 
 
-// int	is_there_space(char *str)
-// {
-// 	int i;
+int	is_there_space(char *str)
+{
+	int i;
 
-// 	i = 0;
-// 	while(str[i])
-// 	{
-// 		if(check_is(str[i], " \t\n\v\f\r"))
-// 			return (-1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	i = 0;
+	while(str[i])
+	{
+		if(check_is(str[i], " \t\n\v\f\r"))
+			break;
+		i++;
+	}
+	if(!str[i])
+		return(-1);
+	else
+		return (0);
+}
 
 char **cpy_env(char **str)
 {

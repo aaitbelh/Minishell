@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/13 16:04:52 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:25:42 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ char **cpy_env(char **str);
 void rl_replace_line (char *text, int clear_undo);
 void	handler(int sig);
 void ft_error_fd(char *str, int Exit);
-
+int	is_there_space(char *str);
 
 # endif
