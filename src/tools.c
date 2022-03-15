@@ -6,12 +6,26 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/14 10:00:04 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:53:16 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+
+char *get_from_env(char *str, int size, int start)
+{
+	int	i;
+
+	i = 0;
+	while(g_data.ev[i])
+	{
+		if(!strncmp(g_data.ev[i], str, size))
+			return (ft_substr(g_data.ev[i], start, ft_strlen(g_data.ev[i])));
+		i++;
+	}
+	return (NULL);
+}
 
 void	handler(int sig)
 {

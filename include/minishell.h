@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/14 10:25:42 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:09:30 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <signal.h>
 #include <stdlib.h>
+#include <errno.h>
 #include "../libft/libft.h"
 
 struct s_data g_data;
@@ -34,5 +35,7 @@ void rl_replace_line (char *text, int clear_undo);
 void	handler(int sig);
 void ft_error_fd(char *str, int Exit);
 int	is_there_space(char *str);
+char *get_from_env(char *str, int size, int start);
+int	ft_join_error(char *s1, char *s2, int Exit);
 
 # endif

@@ -6,11 +6,18 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/14 10:25:49 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:53:51 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
+
+void	start_exec()
+{
+	int i;
+	
+}
+
 
 void get_read_cmd()
 {
@@ -27,7 +34,7 @@ void get_read_cmd()
 			add_history(cmd_shell);
 		if(is_there_space(cmd_shell))
 			free(cmd_shell);
-		// start_exec();
+		start_exec();
 	}
 }
 
@@ -42,6 +49,5 @@ int main(int ac , char **av, char **env)
 	g_data.ev = cpy_env(env);
 	sb.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sb, NULL);
-	get_read_cmd();
 	return (0);
 }

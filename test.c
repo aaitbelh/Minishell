@@ -1,18 +1,15 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
-int main()
+int main(int ac , char **av, char **env)
 {
-	char path[256];
-	int ch = chdir("..");
+	char *path;
+	int ch = chdir(NULL);
 	if(ch < 0)
 		printf("unseccess work\n");
 	else
 		printf("succsecc work\n");
-	if(getcwd(path, sizeof(path)) == NULL)
-	{
-		perror("getcwd() error");
-		return 10;
-	}
+	path = getcwd(NULL, 0);
 	printf("%s", path);
+
 }
