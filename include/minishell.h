@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/14 20:22:47 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/15 17:15:48 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,17 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char			**ev;
-	char			**cmds;
-	char			*word;
-	int				word_len;
-	struct s_cmd	*cmd;
+	char				**ev;
+	char				**cmds;
+	char				*word;
+	char				*line;
+	int					word_len;
+	struct sigaction	sa;
+	struct sigaction	sb;
+	struct s_cmd		*cmd;
 }	t_data;
 
 char	**cpy_env(char **str);
 void	rl_replace_line (char *text, int clear_undo);
-char	**ft_split(char const *s, char c);
 
 #endif

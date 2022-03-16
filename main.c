@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/14 21:21:29 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/16 11:55:11 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,101 @@ void	cpy_word(int i)
 	x = 0;
 	j = 0;
 	g_data.word = malloc(sizeof(char ) * (g_data.word_len + 1));
-	while (g_data.cmds[i][j] && g_data.cmds[i][j] != '>' && g_data.cmds[i][j] != '<')
+	while (g_data.cmds[i][j])
 	{
-		if (g_data.cmds[i][j] != ' ')
+		while (g_data.cmds[i][j] == ' ')
+			j++;
+		if (g_data.cmds[i][j] != ' ' && g_data.cmds[i][j] != '>' && g_data.cmds[i][j] != '<')
 			g_data.word[x++] = g_data.cmds[i][j];
 		j++;
 	}
 	g_data.word[x] = '\0';
 }
 
+// void	get_cmd(int i)
+// {
+// 	int	x;
+// 	int	j;
 
+// 	x = 0;
+// 	j = 0;
+// 	while (g_data.cmds[i][j])
+// 	{
+// 		while (g_data.cmds[i][j] == ' ' && x == 0)
+// 			j++;
+// 		if (g_data.cmds[i][j] != ' ' && g_data.cmds[i][j] != '>' && g_data.cmds[i][j] != '<')
+// 			g_data.cmd[i].command[x++] = g_data.cmds[i][j];
+// 		else
+// 			break ;
+// 		j++;
+// 	}
+// 	g_data.cmd[i].command[x] = '\0';
+// }
 
-void	split_cmds(int i)
+// void	split_cmds(int i)
+// {
+// 	int	j;
+
+// 	g_data.word_len = 0;
+// 	j = 0;
+
+// 	while (g_data.cmds[i][j])
+// 	{
+// 		while (g_data.cmds[i][j] == ' ' && g_data.word_len == 0)
+// 			j++;
+// 		if (g_data.cmds[i][j] != ' ' && g_data.cmds[i][j] != '>' && g_data.cmds[i][j] != '<')
+// 			g_data.word_len++;
+// 		else if (g_data.word_len != 0)
+// 		{
+// 			g_data.cmd[i].command = malloc(sizeof(char ) * (g_data.word_len + 1));
+// 			get_cmd(i);
+// 			printf("%s\n", g_data.cmd[i].command);
+// 			break ;
+// 		}
+// 		j++;
+// 	}
+// 	if(g_data.cmds[i][j] == '\0')
+// 	{
+// 		g_data.cmd[i].command = malloc(sizeof(char ) * (g_data.word_len + 1));
+// 		get_cmd(i);
+// 		printf("%s\n", g_data.cmd[i].command);
+// 	}
+// }
+
+void	split_cmds(char *line, int x)
 {
-	int	j;
+	int	i;
+	int j;
 
-	g_data.word_len = 0;
-	j = 0;
-	while (g_data.cmds[i][j])
+	g_data.cmds = malloc(sizeof(char *) * (x + 1));
+}
+
+void	data_init(char *line)
+{
+	int	i;
+	int	t[2];
+	int	x;
+
+	t[0] = 1;
+	t[1] = 1;
+	x = 0;
+	i = 0;
+	while (line[i])
 	{
-		if (g_data.cmds[i][j] != ' ')
-			g_data.word_len++;
-		if (g_data.cmds[i][j + 1] == '<' || g_data.cmds[i][j + 1] == '>')
-		{
-			cpy_word(i);
-			g_data.cmd[i].command = strdup(g_data.word);
-		}
-		j++;
+		if (line[i] == 39)
+			t[0] *= -1;
+		if (line[i] == 34)
+			t[1] *= -1;
+		if (line[i] == '|' && t[0] + t[1] == 2)
+			x++;
+		i++;
+	}
+	if (t[0] + t[1] != 2)
+		write(1, "minishell: syntax error: unclosed quote\n", 40);
+	else
+	{
+		g_data.cmd = malloc(sizeof(t_cmd ) * (x + 1));
+		split_cmds(line, x);
 	}
 }
 
@@ -63,30 +131,20 @@ int main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-	(void)env;
-	char				*str;
-	struct sigaction	sa;
-	struct sigaction	sb;
+	int	i;
 
 	g_data.ev = cpy_env(env);
-	sa.sa_handler = &handler;
-	sb.sa_handler = SIG_IGN;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sb, NULL);
+	g_data.sa.sa_handler = &handler;
+	g_data.sb.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &g_data.sa, NULL);
+	sigaction(SIGQUIT, &g_data.sb, NULL);
 	while(1)
 	{
-		str = readline("minishell-$ ");
-		if(!str)
+		g_data.line = readline("minishell-$ ");
+		if (!g_data.line)
 			break ;
-		int x = 0;
-		for (int i = 0; str[i]; i++){
-			if (str[i] == '|')
-				x++;
-		}
-		g_data.cmd = malloc(sizeof(t_cmd ) * (x + 1));
-		g_data.cmds = ft_split(str, '|');
-		for(int i = 0; g_data.cmds[i]; i++)
-			split_cmds(i);
+		i = 0;
+		data_init(g_data.line);
 	}
 	return (0);
 }

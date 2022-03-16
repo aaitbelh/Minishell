@@ -1,24 +1,24 @@
 Name = minishell
-
-SRCS = main.c srcs/tools.c srcs/ft_split.c
-
+LIBFT = libft/libft.a
+SRCS = main.c srcs/tools.c
 OBJS = $(SRCS:.c=.o)
-
 CC = gcc
-
-CFLAGS = -Wall -Werror -Wextra 
-
+CFLAGS = -Wall -Werror -Wextra
+READLINE = -lreadline -L/Users/alaajili/.brew/opt/readline/lib -I/Users/alaajili/.brew/opt/readline/include
 SANITIZE = -fsanitize=address
 
 all : $(Name)
 
 $(Name): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -L/Users/alaajili/.brew/opt/readline/lib -I/Users/alaajili/.brew/opt/readline/include -o $(Name) $(SANITIZE)
+	make -C libft
+	$(CC) $(CFLAGS) $(LIBFT) $(OBJS) $(READLINE) -o $(Name) $(SANITIZE)
 
 clean :
+	make -C libft clean
 	rm -f $(OBJS)
 
 fclean : clean
-	rm -rf $(Name)
+	make -C libft fclean
+	rm -f $(Name)
 
 re : fclean all
