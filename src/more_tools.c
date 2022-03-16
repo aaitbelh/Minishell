@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errors.c                                        :+:      :+:    :+:   */
+/*   more_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/13 13:20:04 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/16 11:22:10 by aaitbelh         ###   ########.fr       */
+/*   Created: 2022/03/16 11:55:25 by aaitbelh          #+#    #+#             */
+/*   Updated: 2022/03/16 13:52:58 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-
-
-int ft_error_ret(char *str, int ret)
+int	ret_indice_env(char **env, char *str)
 {
-	ft_putstr_fd(str, 2);
-	return (ret);
-}
+	int	i;
 
-int	ft_join_error(char *s1, char *s2, int Exit)
-{
-	char	*Err_msg;
-
-	Err_msg = ft_strjoin(s1, s2);
-	perror(Err_msg);
-	free(Err_msg);
-	return (Exit);
-}
-
-void ft_error_fd(char *str, int Exit)
-{
-	ft_putstr_fd(str, 2);
-	exit(Exit);
+	i = 0;
+	while(env[i])
+	{
+		if(!strncmp(env[i], str, ft_strlen(str)))
+			return (i);
+		i++;
+	}
+	return (-1);
 }

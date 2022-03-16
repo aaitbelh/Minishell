@@ -6,23 +6,18 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/15 16:53:51 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/16 14:20:56 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
-
-void	start_exec()
-{
-	int i;
-	
-}
 
 
 void get_read_cmd()
 {
 	char *cmd_shell;
 	struct sigaction	sa;
+	char **test;
 	sa.sa_handler = &handler;
 	sigaction(SIGINT, &sa, NULL);
 	while(1)
@@ -32,9 +27,33 @@ void get_read_cmd()
 			ft_error_fd("exit", 0);
 		if(ft_strlen(cmd_shell) > 0)
 			add_history(cmd_shell);
-		if(is_there_space(cmd_shell))
-			free(cmd_shell);
-		start_exec();
+		// if(is_there_space(cmd_shell))
+		// 	free(cmd_shell);
+		if(!ft_strncmp(cmd_shell, "cd", 2))
+		{
+			test = ft_split(cmd_shell, ' ');
+			ft_cd(test);
+		}
+		if(!strcmp(cmd_shell, "pwd"))
+		{
+			ft_pwd();
+		}
+		if(!ft_strncmp(cmd_shell, "echo", 4))
+		{
+			test = ft_split(cmd_shell, ' ');
+			ft_echo(&test[1]);
+		}
+		if(!ft_strcmp(cmd_shell, "env"))
+		{
+			// // int i;
+			// // i = 0;
+			// // while(g_data.ev[i])
+			// // {
+			// 	printf("%s\n", g_data.ev[5]);
+			// // 	i++;
+			// // }
+		}
+		free(cmd_shell);
 	}
 }
 
@@ -49,5 +68,6 @@ int main(int ac , char **av, char **env)
 	g_data.ev = cpy_env(env);
 	sb.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sb, NULL);
+	get_read_cmd();
 	return (0);
 }

@@ -6,12 +6,20 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/15 18:19:21 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/16 14:19:11 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+
+void ft_pwd()
+{
+	char *path;
+	path = getcwd(NULL, 0);
+	printf("%s\n", path);
+	free(path);
+}
 
 void ft_echo(char **str)
 {
@@ -48,24 +56,37 @@ void ft_echo(char **str)
 void ft_cd(char **path)
 {
 	int		ret;
-	char	*old_pwd;
 	char	*env;
 
-	old_pwd = getcwd(NULL, 0);
-	if(!*path[1])
+	if(!path[1])
 	{
+		edit_oldpwd();
 		env = get_from_env("HOME=", 5, 5);
 		ret = chdir(env);
-		if(NULL)
-			ft_join_error("Minishell : cd : HOME not set \n", "", 1);
+		if(ENOENT == errno)
+			ft_join_error("Minishell: cd:", path[1],  1);
+		else if(ret < 0)
+			ft_error_ret("Minishell : cd : HOME not set \n", 1);
+		edit_pwd();
+		free(env);
 	}
 	else
 	{
+		edit_oldpwd();
 		ret = chdir(path[1]);
 		if(ENOENT == errno)
 			ft_join_error("Minishell : cd:", path[1], 1);
 		else if(ret < 0)
 			ft_join_error("Minishell : cd:", path[1], 1);
+		edit_pwd();
 	}
+	int i = 0;
+	while(path[i])
+	{
+		free(path[i]);
+		i++;
+	}
+	free(path);
 }
+
 

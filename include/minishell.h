@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/15 18:09:30 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/16 14:03:33 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,14 @@ void ft_error_fd(char *str, int Exit);
 int	is_there_space(char *str);
 char *get_from_env(char *str, int size, int start);
 int	ft_join_error(char *s1, char *s2, int Exit);
+void ft_error_fd(char *str, int Exit);
+void edit_oldpwd();
+void ft_cd(char **path);
+void ft_pwd();
+void ft_echo(char **str);
+int ft_error_ret(char *str, int ret);
+int	ret_indice_env(char **env, char *str);
+void edit_pwd();
+
 
 # endif

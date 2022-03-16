@@ -2,7 +2,7 @@ Name = minishell
 
 LIBFT = libft/libft.a 
 
-SRCS = main.c src/tools.c src/ft_errors.c
+SRCS = main.c src/tools.c src/ft_errors.c src/builtins_commands.c src/more_tools.c src/edit_env.c
 
 OBJS = $(SRCS:.c=.o)
 

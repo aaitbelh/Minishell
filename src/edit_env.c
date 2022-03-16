@@ -1,37 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errors.c                                        :+:      :+:    :+:   */
+/*   edit_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/13 13:20:04 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/16 11:22:10 by aaitbelh         ###   ########.fr       */
+/*   Created: 2022/03/16 11:47:09 by aaitbelh          #+#    #+#             */
+/*   Updated: 2022/03/16 14:14:18 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-
-
-int ft_error_ret(char *str, int ret)
+void edit_oldpwd()
 {
-	ft_putstr_fd(str, 2);
-	return (ret);
+	int		i;
+	char	*old_path;
+	int		j;
+
+	old_path = getcwd(NULL, 0);
+	i = ret_indice_env(g_data.ev, "OLDPWD=");
+	printf("%d\n", i);
+	j = 7;
+	while(g_data.ev[i][j])
+	{
+		g_data.ev[i][j] = old_path[j - 7];
+		j++;
+	}
+	free(old_path);
+	
 }
-
-int	ft_join_error(char *s1, char *s2, int Exit)
+void	edit_pwd()
 {
-	char	*Err_msg;
-
-	Err_msg = ft_strjoin(s1, s2);
-	perror(Err_msg);
-	free(Err_msg);
-	return (Exit);
-}
-
-void ft_error_fd(char *str, int Exit)
-{
-	ft_putstr_fd(str, 2);
-	exit(Exit);
+	int		i;
+	int		j;
+	char	*pwd;
+	
+	pwd = getcwd(NULL, 0);
+	j = 0;
+	i = ret_indice_env(g_data.ev, "PWD=");
+	while(g_data.ev[i][j])
+	{
+		g_data.ev[i][j + 4] = pwd[j];
+		j++;
+	}
+	free(pwd);
 }
