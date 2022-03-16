@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/16 14:20:56 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/16 14:40:33 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void get_read_cmd()
 		}
 		if(!ft_strcmp(cmd_shell, "env"))
 		{
-			// // int i;
-			// // i = 0;
-			// // while(g_data.ev[i])
-			// // {
-			// 	printf("%s\n", g_data.ev[5]);
-			// // 	i++;
-			// // }
+			int i;
+			i = 0;
+			while(g_data.ev[i])
+			{
+				printf("%s\n", g_data.ev[i]);
+				i++;
+			}
 		}
 		free(cmd_shell);
 	}
