@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/16 14:40:33 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/16 21:51:11 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ void get_read_cmd()
 				i++;
 			}
 		}
+		if(!strcmp(cmd_shell, "export"))
+		{
+			test = ft_split(cmd_shell, ' ');
+			ft_export(test);
+		}
 		free(cmd_shell);
 	}
 }
@@ -66,6 +71,7 @@ int main(int ac , char **av, char **env)
 	struct sigaction	sb;
 
 	g_data.ev = cpy_env(env);
+	g_data.exp = cpy_exp(env);
 	sb.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sb, NULL);
 	get_read_cmd();

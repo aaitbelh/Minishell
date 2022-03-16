@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/16 14:03:33 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/16 21:51:54 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ struct s_data g_data;
 typedef struct s_data
 {
 	char **ev;
+	char **exp;
 }	t_data;
 
 char **cpy_env(char **str);
@@ -44,7 +45,10 @@ void ft_pwd();
 void ft_echo(char **str);
 int ft_error_ret(char *str, int ret);
 int	ret_indice_env(char **env, char *str);
-void edit_pwd();
-
+void	edit_pwd();
+char	**cpy_exp(char **env);
+void	sort_it(char **table);
+void ft_strswap(char **s1, char **s2);
+void ft_export(char **path);
 
 # endif
