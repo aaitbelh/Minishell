@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/16 21:51:11 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/17 13:12:05 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void get_read_cmd()
 				i++;
 			}
 		}
-		if(!strcmp(cmd_shell, "export"))
+		if(!strncmp(cmd_shell, "export", 6))
 		{
 			test = ft_split(cmd_shell, ' ');
 			ft_export(test);

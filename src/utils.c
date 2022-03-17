@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 18:13:34 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/16 21:52:19 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:49:12 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,10 @@ char	**cpy_exp(char **env)
 	sorted_env[i] = NULL;
 	sort_it(sorted_env);
 	return (sorted_env);
+}
+int	syntax_check(char *str)
+{
+	if(str[0] != '_' && !ft_isalpha(str[0]))
+		return (1);
+	return (0);
 }
