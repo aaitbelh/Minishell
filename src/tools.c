@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/16 14:40:52 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:41:08 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,17 @@ char **cpy_env(char **str)
 {
 	char **table;
 	int	i;
-	int	j;
 
 	i = 0;
 	while(str[i])
 		i++;
-	table = malloc((sizeof(char *) * i) + 1);
+	table = malloc(sizeof(char *) * (i + 1));
 	if(!table)
 		return (NULL);
 	i = 0;
 	while(str[i])
 	{
-		j = 0;
-		table[i] = malloc((sizeof(char ) *  strlen(str[i])) + 1);
-		while(str[i][j])
-		{
-			table[i][j] = str[i][j];
-			j++;
-		}
-		table[i][j] = '\0';
+		table[i] = ft_strdup(str[i]);
 		i++;
 	}
 	table[i] = NULL;

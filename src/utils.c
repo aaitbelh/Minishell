@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 18:13:34 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/17 14:49:12 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:42:25 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**cpy_exp(char **env)
 	i = 0;
 	while(env[i])
 		i++;
-	sorted_env = malloc((sizeof(char *) * i) + 1);
+	sorted_env = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while(env[i])
 	{

@@ -2,13 +2,13 @@ Name = minishell
 
 LIBFT = libft/libft.a 
 
-SRCS = main.c src/tools.c src/ft_errors.c src/builtins_commands.c src/more_tools.c src/edit_env.c src/utils.c src/export.c
+SRCS = main.c src/tools.c src/ft_errors.c src/builtins_commands.c src/more_tools.c src/edit_env.c src/utils.c src/export.c src/free_functions.c
 
 OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra
 
 all : $(Name)
 

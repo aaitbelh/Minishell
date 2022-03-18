@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/17 17:27:21 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/17 23:04:29 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void ft_cd(char **path)
 		free(env);
 	}
 	else
-	{
+	{	
 		edit_oldpwd();
 		ret = chdir(path[1]);
 		if(ENOENT == errno)

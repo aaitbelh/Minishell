@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/17 18:42:36 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:10:15 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char **add_new(char *str)
 	i = 0;
 	while(g_data.ev[i])
 		i++;
-	new_env = malloc(sizeof(char *) * i + 1);
+	new_env = malloc(sizeof(char *) * (i + 2));
 	i = 0;
 	while(g_data.ev[i])
 	{
@@ -36,7 +36,7 @@ char **add_new(char *str)
 		free(g_data.ev[i]);
 		i++;
 	}
-	// free(g_data.ev[i]);
+	free(g_data.ev[i]);
 	return (new_env);
 }
 
@@ -44,19 +44,23 @@ void	add_bath_evx(char *str)
 {
 	int i;
 	char **path;
+	char **env_path;
 
 	path = ft_split(str, '=');
 	i = 0;	
 	while(g_data.ev[i])
 	{
-		if(!ft_strncmp(g_data.ev[i], path[0], ft_strlen(path[0])))
+		env_path = ft_split(g_data.ev[i], '=');
+		if(!ft_strcmp(env_path[0], path[0]))
 		{
-			printf("igot here it me im the probelmn")
+			free(g_data.ev[i]);
 			g_data.ev[i] = str;
 			return ;
 		}
+		twoDfree(env_path);
 		i++;
 	}
+	twoDfree(path);
 	g_data.ev = add_new(str);
 }
 
@@ -74,10 +78,13 @@ int ft_export(char **path)
 		}
 		return(0);
 	}
+	i = 1;
 	while(path[i])
-	{
+	{ 
 		if(syntax_check(path[i]))
-			return(ft_join_error("Minishel: export: ", path[1], 1));
+			ft_join_error("Minishel: export: ", path[1], 1);
+		else if(!ft_strchr(path[i], '='))
+			return(1) ;
 		else
 			add_bath_evx(path[i]);
 		i++;
