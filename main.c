@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/19 12:39:18 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/19 14:08:01 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	cpy_word(int i)
 // 	}
 // }
 
-void	get_cmds(int i, int j, int k)
+void	cpy_cmds(int i, int j, int k)
 {
 	int	x;
 
@@ -101,7 +101,7 @@ void	get_cmds(int i, int j, int k)
 	g_data.cmds[k][x] = '\0';
 }
 
-void	split_cmds(char *line, int x)
+void	get_cmds(char *line, int x)
 {
 	int	i;
 	int j;
@@ -122,18 +122,66 @@ void	split_cmds(char *line, int x)
 			t[1] *= -1;
 		if (line[i] == '|' && t[0] + t[1] == 2)
 		{
-			get_cmds(i, j, k);
+			cpy_cmds(i, j, k);
 			k++;
 			j = i + 1;
 		}
 		if (line[i + 1] == 0)
 		{
-			get_cmds(i + 1, j, k);
+			cpy_cmds(i + 1, j, k);
 			k++;
 		}
 		i++;
 	}
 	g_data.cmds[k] = NULL;
+}
+
+void	get_command(int k, int j, int i)
+{
+	int	x;
+	
+	g_data.cmd[i].command = malloc(sizeof(char ) * (k - j + 1));
+	x = 0;
+	while (j != k)
+	{
+		g_data.cmd[i].command[x] = g_data.cmds[i][j];
+		x++;
+		j++;
+	}
+	g_data.cmd[i].command[x] = 0;
+}
+
+void	split_cmds(int i)
+{
+	int	k;
+	int	j;
+
+	k = 0;
+	j = 0;
+	while (g_data.cmds[i][k] == ' ')
+	{
+		k++;
+		j++;
+	}
+	if (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<')
+	{
+		while (g_data.cmds[i][k] && g_data.cmds[i][k] != '>' &&
+			g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ')
+			k++;
+		get_command(k, j, i);
+	}
+}
+
+void	handle_cmds(void)
+{
+	int i;
+
+	i = 0;
+	while (g_data.cmds[i])
+	{
+		split_cmds(i);
+		i++;
+	}
 }
 
 void	data_init(char *line)
@@ -161,7 +209,8 @@ void	data_init(char *line)
 	else
 	{
 		g_data.cmd = malloc(sizeof(t_cmd ) * (x + 1));
-		split_cmds(line, x);
+		get_cmds(line, x);
+		handle_cmds();
 	}
 }
 
