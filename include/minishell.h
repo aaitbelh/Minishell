@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/18 16:15:26 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/18 21:59:58 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ int	syntax_check(char *str);
 void	add_bath_evx(char *str);
 char **add_new(char *str);
 void	twoDfree(char **table);
+char **delete_it(int ind);
+void unset(char **str);
 
 # endif

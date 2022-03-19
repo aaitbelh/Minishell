@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/18 17:10:15 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/18 18:39:31 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int ft_export(char **path)
 	i = 0;
 	if(!path[1])
 	{
-		sort_it(g_data.exp);
+		twoDfree(g_data.exp);
+		g_data.exp = cpy_exp(g_data.ev);
 		while(g_data.exp[i])
 		{
 			printf("declare -x %s\n", g_data.exp[i]);
@@ -83,8 +84,6 @@ int ft_export(char **path)
 	{ 
 		if(syntax_check(path[i]))
 			ft_join_error("Minishel: export: ", path[1], 1);
-		else if(!ft_strchr(path[i], '='))
-			return(1) ;
 		else
 			add_bath_evx(path[i]);
 		i++;
