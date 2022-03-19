@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/19 14:08:01 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:36:39 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,75 +20,6 @@ void	handler(int sig)
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
-
-void	cpy_word(int i)
-{
-	int x;
-	int	j;
-
-	x = 0;
-	j = 0;
-	g_data.word = malloc(sizeof(char ) * (g_data.word_len + 1));
-	while (g_data.cmds[i][j])
-	{
-		while (g_data.cmds[i][j] == ' ')
-			j++;
-		if (g_data.cmds[i][j] != ' ' && g_data.cmds[i][j] != '>' && g_data.cmds[i][j] != '<')
-			g_data.word[x++] = g_data.cmds[i][j];
-		j++;
-	}
-	g_data.word[x] = '\0';
-}
-
-// void	get_cmd(int i)
-// {
-// 	int	x;
-// 	int	j;
-
-// 	x = 0;
-// 	j = 0;
-// 	while (g_data.cmds[i][j])
-// 	{
-// 		while (g_data.cmds[i][j] == ' ' && x == 0)
-// 			j++;
-// 		if (g_data.cmds[i][j] != ' ' && g_data.cmds[i][j] != '>' && g_data.cmds[i][j] != '<')
-// 			g_data.cmd[i].command[x++] = g_data.cmds[i][j];
-// 		else
-// 			break ;
-// 		j++;
-// 	}
-// 	g_data.cmd[i].command[x] = '\0';
-// }
-
-// void	split_cmds(int i)
-// {
-// 	int	j;
-
-// 	g_data.word_len = 0;
-// 	j = 0;
-
-// 	while (g_data.cmds[i][j])
-// 	{
-// 		while (g_data.cmds[i][j] == ' ' && g_data.word_len == 0)
-// 			j++;
-// 		if (g_data.cmds[i][j] != ' ' && g_data.cmds[i][j] != '>' && g_data.cmds[i][j] != '<')
-// 			g_data.word_len++;
-// 		else if (g_data.word_len != 0)
-// 		{
-// 			g_data.cmd[i].command = malloc(sizeof(char ) * (g_data.word_len + 1));
-// 			get_cmd(i);
-// 			printf("%s\n", g_data.cmd[i].command);
-// 			break ;
-// 		}
-// 		j++;
-// 	}
-// 	if(g_data.cmds[i][j] == '\0')
-// 	{
-// 		g_data.cmd[i].command = malloc(sizeof(char ) * (g_data.word_len + 1));
-// 		get_cmd(i);
-// 		printf("%s\n", g_data.cmd[i].command);
-// 	}
-// }
 
 void	cpy_cmds(int i, int j, int k)
 {
@@ -139,7 +70,7 @@ void	get_cmds(char *line, int x)
 void	get_command(int k, int j, int i)
 {
 	int	x;
-	
+
 	g_data.cmd[i].command = malloc(sizeof(char ) * (k - j + 1));
 	x = 0;
 	while (j != k)
@@ -149,6 +80,67 @@ void	get_command(int k, int j, int i)
 		j++;
 	}
 	g_data.cmd[i].command[x] = 0;
+}
+
+void	get_num_of_args_files(int i, int k)
+{
+	int	check;
+
+	g_data.num_of_args = 0;
+	g_data.num_of_files = 0;
+	check = 0;
+	while (g_data.cmds[i][k])
+	{
+		while (g_data.cmds[i][k] == ' ')
+			k++;
+		if (g_data.cmds[i][k] == '>' || g_data.cmds[i][k] == '<')
+		{
+			g_data.num_of_files++;
+			if (g_data.cmds[i][k] == '>' && g_data.cmds[i][k + 1] == '<')
+			{
+				write(1, "minishell: syntax error near unexpected token `<'\n", 50);
+				g_data.num_of_args = 0;
+				g_data.num_of_files = 0;
+				return ;
+			}
+			if (g_data.cmds[i][k] == '<' && g_data.cmds[i][k + 1] == '>')
+			{
+				write(1, "minishell: syntax error near unexpected token `>'\n", 50);
+				g_data.num_of_args = 0;
+				g_data.num_of_files = 0;
+				return ;
+			}
+			if (g_data.cmds[i][k + 1] == '>' || g_data.cmds[i][k + 1] == '<')
+				k ++;
+			while (g_data.cmds[i][k] == ' ')
+				k++;
+			if (g_data.cmds[i][k + 1] == '>')
+			{
+				write(1, "minishell: syntax error near unexpected token `>'\n", 50);
+				g_data.num_of_args = 0;
+				g_data.num_of_files = 0;
+				return ;
+			}
+			if (g_data.cmds[i][k + 1] == '<')
+			{
+				write(1, "minishell: syntax error near unexpected token `<'\n", 50);
+				g_data.num_of_args = 0;
+				g_data.num_of_files = 0;
+				return ;
+			}
+		}
+		else
+			g_data.num_of_args++;
+		k++;
+		while (g_data.cmds[i][k] == ' ')
+			k++;
+		while (g_data.cmds[i][k] != ' ' && g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<')
+		{
+			if (!g_data.cmds[i][k])
+				break ;
+			k++;
+		}
+	}
 }
 
 void	split_cmds(int i)
@@ -169,6 +161,10 @@ void	split_cmds(int i)
 			g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ')
 			k++;
 		get_command(k, j, i);
+		while (g_data.cmds[i][k] == ' ')
+			k++;
+		get_num_of_args_files(i, k);
+		printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
 	}
 }
 

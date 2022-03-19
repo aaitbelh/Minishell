@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/17 13:33:01 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/19 15:39:47 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_cmd
 {
 	char	*command;
 	char	**arg;
-	t_file	*file;
+	t_file	**file;
 }	t_cmd;
 
 typedef struct s_data
@@ -49,6 +49,8 @@ typedef struct s_data
 	char				*word;
 	char				*line;
 	int					word_len;
+	int					num_of_args;
+	int					num_of_files;
 	struct sigaction	sa;
 	struct sigaction	sb;
 	struct s_cmd		*cmd;
