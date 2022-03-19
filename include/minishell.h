@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/15 17:15:48 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/17 13:33:01 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>
+# include "../libft/libft.h"
 
 # define IN 0
 # define OUT 1

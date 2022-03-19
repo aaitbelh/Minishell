@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/16 11:55:11 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/19 12:39:18 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,50 @@ void	cpy_word(int i)
 // 	}
 // }
 
+void	get_cmds(int i, int j, int k)
+{
+	int	x;
+
+	g_data.cmds[k] = malloc(sizeof(char ) * (i - j + 1));
+	x = 0;
+	while (j != i)
+		g_data.cmds[k][x++] = g_data.line[j++];
+	g_data.cmds[k][x] = '\0';
+}
+
 void	split_cmds(char *line, int x)
 {
 	int	i;
 	int j;
+	int	k;
+	int	t[2];
 
-	g_data.cmds = malloc(sizeof(char *) * (x + 1));
+	g_data.cmds = malloc(sizeof(char *) * (x + 2));
+	t[0] = 1;
+	t[1] = 1;
+	i = 0;
+	j = 0;
+	k = 0;
+	while (line[i])
+	{
+		if (line[i] == 39)
+			t[0] *= -1;
+		if (line[i] == 34)
+			t[1] *= -1;
+		if (line[i] == '|' && t[0] + t[1] == 2)
+		{
+			get_cmds(i, j, k);
+			k++;
+			j = i + 1;
+		}
+		if (line[i + 1] == 0)
+		{
+			get_cmds(i + 1, j, k);
+			k++;
+		}
+		i++;
+	}
+	g_data.cmds[k] = NULL;
 }
 
 void	data_init(char *line)
