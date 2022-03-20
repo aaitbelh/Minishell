@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/20 14:41:17 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/20 17:20:39 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,8 @@ void	get_command(int k, int j, int i)
 
 void	get_num_of_args_files(int i, int k)
 {
-	int	check;
-
 	g_data.num_of_args = 0;
 	g_data.num_of_files = 0;
-	check = 0;
 	while (g_data.cmds[i][k])
 	{
 		while (g_data.cmds[i][k] == ' ')
@@ -133,13 +130,25 @@ void	get_num_of_args_files(int i, int k)
 		}
 		else if (g_data.cmds[i][k])
 			g_data.num_of_args++;
-		k++;
+		//k++;
 		while (g_data.cmds[i][k] == ' ')
 			k++;
 		while (g_data.cmds[i][k] != ' ' && g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<')
 		{
 			if (!g_data.cmds[i][k])
 				break ;
+			if (g_data.cmds[i][k] == 34)
+			{
+				k++;
+				while (g_data.cmds[i][k] != 34)
+					k++;
+			}
+			else if (g_data.cmds[i][k] == 39)
+			{
+				k++;
+				while (g_data.cmds[i][k] != 39)
+					k++;
+			}
 			k++;
 		}
 	}
@@ -166,7 +175,8 @@ void	split_cmds(int i)
 		while (g_data.cmds[i][k] == ' ')
 			k++;
 		get_num_of_args_files(i, k);
-		//printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
+		printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
+		//get_args_files(i, k);
 	}
 }
 
@@ -194,9 +204,9 @@ void	data_init(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == 39)
+		if (line[i] == 39 && t[1] == 1)
 			t[0] *= -1;
-		if (line[i] == 34)
+		if (line[i] == 34 && t[0] == 1)
 			t[1] *= -1;
 		if (line[i] == '|' && t[0] + t[1] == 2)
 			x++;
