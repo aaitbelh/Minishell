@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/19 18:36:39 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/20 14:41:17 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,17 +111,19 @@ void	get_num_of_args_files(int i, int k)
 				return ;
 			}
 			if (g_data.cmds[i][k + 1] == '>' || g_data.cmds[i][k + 1] == '<')
-				k ++;
+				k += 2;
+			else
+				k++;
 			while (g_data.cmds[i][k] == ' ')
 				k++;
-			if (g_data.cmds[i][k + 1] == '>')
+			if (g_data.cmds[i][k] == '>')
 			{
 				write(1, "minishell: syntax error near unexpected token `>'\n", 50);
 				g_data.num_of_args = 0;
 				g_data.num_of_files = 0;
 				return ;
 			}
-			if (g_data.cmds[i][k + 1] == '<')
+			if (g_data.cmds[i][k] == '<')
 			{
 				write(1, "minishell: syntax error near unexpected token `<'\n", 50);
 				g_data.num_of_args = 0;
@@ -129,7 +131,7 @@ void	get_num_of_args_files(int i, int k)
 				return ;
 			}
 		}
-		else
+		else if (g_data.cmds[i][k])
 			g_data.num_of_args++;
 		k++;
 		while (g_data.cmds[i][k] == ' ')
@@ -164,7 +166,7 @@ void	split_cmds(int i)
 		while (g_data.cmds[i][k] == ' ')
 			k++;
 		get_num_of_args_files(i, k);
-		printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
+		//printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
 	}
 }
 
