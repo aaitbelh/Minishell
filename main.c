@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/20 17:20:39 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/21 01:47:29 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,20 @@ void	get_command(int k, int j, int i)
 	x = 0;
 	while (j != k)
 	{
-		g_data.cmd[i].command[x] = g_data.cmds[i][j];
-		x++;
+		if (g_data.cmds[i][j] == 39)
+		{
+			j++;
+			while (g_data.cmds[i][j] != 39)
+				g_data.cmd[i].command[x++] = g_data.cmds[i][j++];
+		}
+		else if (g_data.cmds[i][j] == 34)
+		{
+			j++;
+			while (g_data.cmds[i][j] != 34)
+				g_data.cmd[i].command[x++] = g_data.cmds[i][j++];
+		}
+		else
+			g_data.cmd[i].command[x++] = g_data.cmds[i][j];
 		j++;
 	}
 	g_data.cmd[i].command[x] = 0;
@@ -170,7 +182,21 @@ void	split_cmds(int i)
 	{
 		while (g_data.cmds[i][k] && g_data.cmds[i][k] != '>' &&
 			g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ')
+		{
+			if (g_data.cmds[i][k] == 34)
+			{
+				k++;
+				while (g_data.cmds[i][k] != 34)
+					k++;
+			}
+			else if (g_data.cmds[i][k] == 39)
+			{
+				k++;
+				while (g_data.cmds[i][k] != 39)
+					k++;
+			}
 			k++;
+		}
 		get_command(k, j, i);
 		while (g_data.cmds[i][k] == ' ')
 			k++;
@@ -240,6 +266,7 @@ int main(int ac, char **av, char **env)
 			break ;
 		i = 0;
 		data_init(g_data.line);
+		printf("%s\n", g_data.cmd[0].command);
 	}
 	return (0);
 }
