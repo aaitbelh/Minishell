@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/21 15:16:02 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:08:04 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void	get_args_files(int i, int k)
 	a = 0;
 	b = 0;
 	if (g_data.num_of_args != 0)
-		g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args + 1));
+		g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args));
 	if (g_data.num_of_files != 0)
 		g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files));
 	while (g_data.cmds[i][k])
@@ -183,7 +183,7 @@ void	get_args_files(int i, int k)
 		while (g_data.cmds[i][k] == ' ')
 			k++;
 		j = k;
-		if (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<')
+		if (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<' && g_data.cmds[i][k])
 		{
 			while (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ' && g_data.cmds[i][k])
 				k++;
@@ -194,7 +194,7 @@ void	get_args_files(int i, int k)
 			g_data.cmd[i].arg[a][x] = 0;
 			a++;
 		}
-		else
+		else if (g_data.cmds[i][k])
 		{
 			if (g_data.cmds[i][k] == '>')
 			{
@@ -272,7 +272,7 @@ void	split_cmds(int i)
 		while (g_data.cmds[i][k] == ' ')
 			k++;
 		get_num_of_args_files(i, k);
-		printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
+		//printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
 		if (g_data.num_of_args != 0 || g_data.num_of_files != 0)
 			get_args_files(i, k);
 	}
@@ -338,7 +338,10 @@ int main(int ac, char **av, char **env)
 			break ;
 		i = 0;
 		data_init(g_data.line);
-		printf("%s\n%d\n", g_data.cmd[0].file[0].file_name, g_data.cmd[0].file[0].file_type);
+		for (int i = 0; i < g_data.num_of_args ; i++)
+			printf("%s\n", g_data.cmd[0].arg[i]);
+		for (int i = 0; i < g_data.num_of_files; i++)
+			printf("%s: %d\n", g_data.cmd[0].file[i].file_name, g_data.cmd[0].file[i].file_type);
 	}
 	return (0);
 }
