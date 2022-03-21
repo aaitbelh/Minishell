@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/19 15:39:47 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:04:40 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_cmd
 {
 	char	*command;
 	char	**arg;
-	t_file	**file;
+	t_file	*file;
 }	t_cmd;
 
 typedef struct s_data

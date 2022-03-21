@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/21 01:47:29 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/21 15:10:07 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ void	get_num_of_args_files(int i, int k)
 		}
 		else if (g_data.cmds[i][k])
 			g_data.num_of_args++;
-		//k++;
 		while (g_data.cmds[i][k] == ' ')
 			k++;
 		while (g_data.cmds[i][k] != ' ' && g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<')
@@ -162,6 +161,78 @@ void	get_num_of_args_files(int i, int k)
 					k++;
 			}
 			k++;
+		}
+	}
+}
+
+void	get_args_files(int i, int k)
+{
+	int	j;
+	int	a;
+	int	b;
+	int	x;
+
+	a = 0;
+	b = 0;
+	if (g_data.num_of_args != 0)
+		g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args + 1));
+	if (g_data.num_of_files != 0)
+		g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files));
+	while (g_data.cmds[i][k])
+	{
+		while (g_data.cmds[i][k] == ' ')
+			k++;
+		j = k;
+		if (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<')
+		{
+			while (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ' && g_data.cmds[i][k])
+				k++;
+			g_data.cmd[i].arg[a] = malloc(sizeof(char ) * (k - j + 1));
+			x = 0;
+			while (j != k)
+				g_data.cmd[i].arg[a][x++] = g_data.cmds[i][j++];
+			g_data.cmd[i].arg[a][x] = 0;
+			a++;
+		}
+		else
+		{
+			if (g_data.cmds[i][k] == '>')
+			{
+				if (g_data.cmds[i][k + 1] == '>')
+				{
+					g_data.cmd[i].file[b].file_type = APPOUT;
+					k += 2;
+				}
+				else
+				{
+					g_data.cmd[i].file[b].file_type = OUT;
+					k++;
+				}
+			}
+			else if (g_data.cmds[i][k] == '<')
+			{
+				if (g_data.cmds[i][k] == '<')
+				{
+					g_data.cmd[i].file[b].file_type = HERDOC;
+					k += 2;
+				}
+				else
+				{
+					g_data.cmd[i].file[b].file_type = IN;
+					k++;
+				}
+			}
+			while (g_data.cmds[i][k] == ' ')
+				k++;
+			j = k;
+			while (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ' && g_data.cmds[i][k])
+				k++;
+			g_data.cmd[i].file[b].file_name = malloc(sizeof(char ) * (k - j + 1));
+			x = 0;
+			while (j != k)
+				g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][j++];
+			g_data.cmd[i].file[b].file_name[x] = 0;
+			b++;
 		}
 	}
 }
@@ -202,7 +273,8 @@ void	split_cmds(int i)
 			k++;
 		get_num_of_args_files(i, k);
 		printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
-		//get_args_files(i, k);
+		if (g_data.num_of_args != 0 || g_data.num_of_files != 0)
+			get_args_files(i, k);
 	}
 }
 
@@ -266,7 +338,7 @@ int main(int ac, char **av, char **env)
 			break ;
 		i = 0;
 		data_init(g_data.line);
-		printf("%s\n", g_data.cmd[0].command);
+		printf("%s\n", g_data.cmd[0].arg[0]);
 	}
 	return (0);
 }
