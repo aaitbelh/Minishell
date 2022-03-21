@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/21 15:10:07 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/21 15:16:02 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void	get_args_files(int i, int k)
 			}
 			else if (g_data.cmds[i][k] == '<')
 			{
-				if (g_data.cmds[i][k] == '<')
+				if (g_data.cmds[i][k + 1] == '<')
 				{
 					g_data.cmd[i].file[b].file_type = HERDOC;
 					k += 2;
@@ -338,7 +338,7 @@ int main(int ac, char **av, char **env)
 			break ;
 		i = 0;
 		data_init(g_data.line);
-		printf("%s\n", g_data.cmd[0].arg[0]);
+		printf("%s\n%d\n", g_data.cmd[0].file[0].file_name, g_data.cmd[0].file[0].file_type);
 	}
 	return (0);
 }
