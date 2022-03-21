@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/21 18:08:04 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/21 22:38:43 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,27 +96,27 @@ void	get_command(int k, int j, int i)
 
 void	get_num_of_args_files(int i, int k)
 {
-	g_data.num_of_args = 0;
-	g_data.num_of_files = 0;
+	g_data.num_of_args[i] = 0;
+	g_data.num_of_files[i] = 0;
 	while (g_data.cmds[i][k])
 	{
 		while (g_data.cmds[i][k] == ' ')
 			k++;
 		if (g_data.cmds[i][k] == '>' || g_data.cmds[i][k] == '<')
 		{
-			g_data.num_of_files++;
+			g_data.num_of_files[i]++;
 			if (g_data.cmds[i][k] == '>' && g_data.cmds[i][k + 1] == '<')
 			{
 				write(1, "minishell: syntax error near unexpected token `<'\n", 50);
-				g_data.num_of_args = 0;
-				g_data.num_of_files = 0;
+				g_data.num_of_args[i] = 0;
+				g_data.num_of_files[i] = 0;
 				return ;
 			}
 			if (g_data.cmds[i][k] == '<' && g_data.cmds[i][k + 1] == '>')
 			{
 				write(1, "minishell: syntax error near unexpected token `>'\n", 50);
-				g_data.num_of_args = 0;
-				g_data.num_of_files = 0;
+				g_data.num_of_args[i] = 0;
+				g_data.num_of_files[i] = 0;
 				return ;
 			}
 			if (g_data.cmds[i][k + 1] == '>' || g_data.cmds[i][k + 1] == '<')
@@ -128,20 +128,20 @@ void	get_num_of_args_files(int i, int k)
 			if (g_data.cmds[i][k] == '>')
 			{
 				write(1, "minishell: syntax error near unexpected token `>'\n", 50);
-				g_data.num_of_args = 0;
-				g_data.num_of_files = 0;
+				g_data.num_of_args[i] = 0;
+				g_data.num_of_files[i] = 0;
 				return ;
 			}
 			if (g_data.cmds[i][k] == '<')
 			{
 				write(1, "minishell: syntax error near unexpected token `<'\n", 50);
-				g_data.num_of_args = 0;
-				g_data.num_of_files = 0;
+				g_data.num_of_args[i] = 0;
+				g_data.num_of_files[i] = 0;
 				return ;
 			}
 		}
 		else if (g_data.cmds[i][k])
-			g_data.num_of_args++;
+			g_data.num_of_args[i]++;
 		while (g_data.cmds[i][k] == ' ')
 			k++;
 		while (g_data.cmds[i][k] != ' ' && g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<')
@@ -175,9 +175,9 @@ void	get_args_files(int i, int k)
 	a = 0;
 	b = 0;
 	if (g_data.num_of_args != 0)
-		g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args));
+		g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args[i]));
 	if (g_data.num_of_files != 0)
-		g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files));
+		g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files[i]));
 	while (g_data.cmds[i][k])
 	{
 		while (g_data.cmds[i][k] == ' ')
@@ -186,11 +186,41 @@ void	get_args_files(int i, int k)
 		if (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<' && g_data.cmds[i][k])
 		{
 			while (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ' && g_data.cmds[i][k])
+			{
+				if (g_data.cmds[i][k] == 39)
+				{
+					k++;
+					while(g_data.cmds[i][k] != 39)
+						k++;
+				}
+				else if (g_data.cmds[i][k] == 34)
+				{
+					k++;
+					while (g_data.cmds[i][k] != 34)
+						k++;
+				}
 				k++;
+			}
 			g_data.cmd[i].arg[a] = malloc(sizeof(char ) * (k - j + 1));
 			x = 0;
 			while (j != k)
-				g_data.cmd[i].arg[a][x++] = g_data.cmds[i][j++];
+			{
+				if (g_data.cmds[i][j] == 39)
+				{
+					j++;
+					while (g_data.cmds[i][j] != 39)
+						g_data.cmd[i].arg[a][x++] = g_data.cmds[i][j++];
+				}
+				else if (g_data.cmds[i][j] == 34)
+				{
+					j++;
+					while (g_data.cmds[i][j] != 34)
+						g_data.cmd[i].arg[a][x++] = g_data.cmds[i][j++];
+				}
+				else
+					g_data.cmd[i].arg[a][x++] = g_data.cmds[i][j];
+				j++;
+			}
 			g_data.cmd[i].arg[a][x] = 0;
 			a++;
 		}
@@ -226,11 +256,41 @@ void	get_args_files(int i, int k)
 				k++;
 			j = k;
 			while (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ' && g_data.cmds[i][k])
+			{
+				if (g_data.cmds[i][k] == 39)
+				{
+					k++;
+					while(g_data.cmds[i][k] != 39)
+						k++;
+				}
+				else if (g_data.cmds[i][k] == 34)
+				{
+					k++;
+					while (g_data.cmds[i][k] != 34)
+						k++;
+				}
 				k++;
+			}
 			g_data.cmd[i].file[b].file_name = malloc(sizeof(char ) * (k - j + 1));
 			x = 0;
 			while (j != k)
-				g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][j++];
+			{
+				if (g_data.cmds[i][j] == 39)
+				{
+					j++;
+					while (g_data.cmds[i][j] != 39)
+						g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][j++];
+				}
+				else if (g_data.cmds[i][j] == 34)
+				{
+					j++;
+					while (g_data.cmds[i][j] != 34)
+						g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][j++];
+				}
+				else
+					g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][j];
+				j++;
+			}
 			g_data.cmd[i].file[b].file_name[x] = 0;
 			b++;
 		}
@@ -294,11 +354,10 @@ void	data_init(char *line)
 {
 	int	i;
 	int	t[2];
-	int	x;
 
 	t[0] = 1;
 	t[1] = 1;
-	x = 0;
+	g_data.x = 0;
 	i = 0;
 	while (line[i])
 	{
@@ -307,15 +366,17 @@ void	data_init(char *line)
 		if (line[i] == 34 && t[0] == 1)
 			t[1] *= -1;
 		if (line[i] == '|' && t[0] + t[1] == 2)
-			x++;
+			g_data.x++;
 		i++;
 	}
 	if (t[0] + t[1] != 2)
 		write(1, "minishell: syntax error: unclosed quote\n", 40);
 	else
 	{
-		g_data.cmd = malloc(sizeof(t_cmd ) * (x + 1));
-		get_cmds(line, x);
+		g_data.cmd = malloc(sizeof(t_cmd ) * (g_data.x + 1));
+		g_data.num_of_args = malloc(sizeof(int ) * (g_data.x + 1));
+		g_data.num_of_files = malloc(sizeof(int ) * (g_data.x + 1));
+		get_cmds(line, g_data.x);
 		handle_cmds();
 	}
 }
@@ -338,9 +399,9 @@ int main(int ac, char **av, char **env)
 			break ;
 		i = 0;
 		data_init(g_data.line);
-		for (int i = 0; i < g_data.num_of_args ; i++)
+		for (int i = 0; i < g_data.num_of_args[0] ; i++)
 			printf("%s\n", g_data.cmd[0].arg[i]);
-		for (int i = 0; i < g_data.num_of_files; i++)
+		for (int i = 0; i < g_data.num_of_files[0]; i++)
 			printf("%s: %d\n", g_data.cmd[0].file[i].file_name, g_data.cmd[0].file[i].file_type);
 	}
 	return (0);

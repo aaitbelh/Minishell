@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/21 14:04:40 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/21 22:02:10 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ typedef struct s_data
 	char				*word;
 	char				*line;
 	int					word_len;
-	int					num_of_args;
-	int					num_of_files;
+	int					*num_of_args;
+	int					*num_of_files;
+	int					x;
 	struct sigaction	sa;
 	struct sigaction	sb;
 	struct s_cmd		*cmd;
