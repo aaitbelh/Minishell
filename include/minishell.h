@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/18 21:59:58 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/21 17:40:39 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ char **add_new(char *str);
 void	twoDfree(char **table);
 char **delete_it(int ind);
 void unset(char **str);
-
+char	*ft_strjoin_gnl(char *s1, char *s2);
 # endif

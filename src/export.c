@@ -6,12 +6,41 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/18 18:39:31 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/21 17:43:11 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+
+void	is_plus(char *str)
+{
+	int	i;
+	int	j;
+	char **new_str;
+	char **cmp;
+	char *tmp;
+
+	i = 0;
+	j = 0;
+	while(str[j] != '=')
+		j++;
+	new_str = ft_split(str, '+');
+	while(g_data.ev[i])
+	{
+		cmp = ft_split(g_data.ev[i], '=');
+		if(!strcmp(cmp[0], new_str[0]))
+		{
+			tmp =  ft_substr(str, j + 1, ft_strlen(str));
+			g_data.ev[i] = ft_strjoin_gnl(g_data.ev[i], tmp);
+			free(tmp);
+			return ;
+		}
+		twoDfree(cmp);
+		i++;
+	}
+	g_data.ev = add_new(str);
+}
 
 char **add_new(char *str)
 {
@@ -47,6 +76,8 @@ void	add_bath_evx(char *str)
 	char **env_path;
 
 	path = ft_split(str, '=');
+	if(path[0][ft_strlen(path[0]) - 1] == '+')
+		return (is_plus(str));
 	i = 0;	
 	while(g_data.ev[i])
 	{
@@ -66,13 +97,14 @@ void	add_bath_evx(char *str)
 
 int ft_export(char **path)
 {
-	int i;
+	int	i;
+	
 	i = 0;
-	if(!path[1])
+	if (!path[1])
 	{
 		twoDfree(g_data.exp);
 		g_data.exp = cpy_exp(g_data.ev);
-		while(g_data.exp[i])
+		while (g_data.exp[i])
 		{
 			printf("declare -x %s\n", g_data.exp[i]);
 			i++;
@@ -80,9 +112,9 @@ int ft_export(char **path)
 		return(0);
 	}
 	i = 1;
-	while(path[i])
-	{ 
-		if(syntax_check(path[i]))
+	while (path[i])
+	{
+		if (syntax_check(path[i]))
 			ft_join_error("Minishel: export: ", path[1], 1);
 		else
 			add_bath_evx(path[i]);
