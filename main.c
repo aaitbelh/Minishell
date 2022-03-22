@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/18 22:01:03 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:51:30 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void get_read_cmd()
 	{
 		cmd_shell = readline("minishell$: ");
 		if(!cmd_shell || !ft_strcmp(cmd_shell, "exit"))
-			ft_error_fd("exit", 0);
+			ft_error_ex("exit", 0);
 		if(ft_strlen(cmd_shell) > 0)
 			add_history(cmd_shell);
 		// if(is_there_space(cmd_shell))
@@ -63,6 +63,36 @@ void get_read_cmd()
 		{
 			test = ft_split(cmd_shell, ' ');
 			unset(test);
+		}
+		else
+		{
+			int i = 0;
+			int l = 1;
+			int pid;
+			g_data.n = 1;
+			g_data.input = -2;
+			g_data.output = 1;
+			g_data.cmd = malloc(sizeof(t_cmd) * g_data.n);
+			g_data.pipe = malloc(sizeof(int) * g_data.n - 1);
+			g_data.cmd->command = ft_strdup("ls");
+			g_data.cmd->arg = malloc(sizeof(char *) * 2);
+			g_data.cmd->arg[0] = ft_strdup("-la");
+			g_data.cmd->arg[1] = NULL;
+			g_data.cmd[i].file = NULL;
+			while(i < l)
+			{
+				pipe(&g_data.pipe[g_data.output - 1]);
+				pid = fork();
+				if(!pid)
+					is_command();
+				i++;
+			}
+			i = 0;
+			while(i < l)
+			{
+				waitpid(-1, NULL, 0);
+				i++;
+			}
 		}
 		free(cmd_shell);
 	}

@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/21 17:43:11 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/22 12:42:35 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ int ft_export(char **path)
 	while (path[i])
 	{
 		if (syntax_check(path[i]))
-			ft_join_error("Minishel: export: ", path[1], 1);
+			ft_join_error("Minishel: export: ", path[i], 1);
 		else
 			add_bath_evx(path[i]);
 		i++;
 	}
 	return (0);
-}
+} 
