@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/22 14:24:38 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/23 15:09:46 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_data
 	int *pipe;
 	int input;
 	int output;
+	int number_cmd;
 	struct s_cmd *cmd;
 }	t_data;
 
@@ -78,7 +79,7 @@ void	twoDfree(char **table);
 char	**delete_it(int ind);
 void	unset(char **str);
 char	*ft_strjoin_gnl(char *s1, char *s2);
-int		is_command();
+int		is_command(t_cmd *cmd, int i);
 char	*ft_check_acs(char **env, char *cmd);
 char **fix_command(char *cmd, char **args);
 # endif

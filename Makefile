@@ -3,7 +3,7 @@ Name = minishell
 LIBFT = libft/libft.a 
 
 SRCS = main.c src/tools.c src/ft_errors.c src/builtins_commands.c src/more_tools.c src/edit_env.c src/utils.c src/export.c src/free_functions.c src/unset.c \
-		src/command_build.c src/get_cmdpath.c \
+		src/execution_cmd.c src/get_cmdpath.c \
 
 OBJS = $(SRCS:.c=.o)
 

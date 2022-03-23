@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/22 15:51:30 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/23 15:45:53 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,45 @@ void get_read_cmd()
 		}
 		else
 		{
+			// test = ft_split(cmd_shell, ' ');
 			int i = 0;
-			int l = 1;
+			int l = 2;
 			int pid;
-			g_data.n = 1;
-			g_data.input = -2;
+			g_data.n = 0;
+			g_data.input = 0;
 			g_data.output = 1;
-			g_data.cmd = malloc(sizeof(t_cmd) * g_data.n);
-			g_data.pipe = malloc(sizeof(int) * g_data.n - 1);
-			g_data.cmd->command = ft_strdup("ls");
-			g_data.cmd->arg = malloc(sizeof(char *) * 2);
-			g_data.cmd->arg[0] = ft_strdup("-la");
-			g_data.cmd->arg[1] = NULL;
-			g_data.cmd[i].file = NULL;
+			g_data.number_cmd = 2;
+			g_data.cmd = malloc(sizeof(t_cmd) * 2);
+			g_data.pipe = malloc(sizeof(int) * (2 - 1));
+			g_data.cmd[0].command = ft_strdup("cat");
+			g_data.cmd[0].arg = malloc(sizeof(char *) * 2);
+			g_data.cmd[0].arg[0] = ft_strdup("/dev/random");
+			g_data.cmd[0].arg[1] = NULL;		
+			g_data.cmd[1].arg = malloc(sizeof(char *) * 2);
+			g_data.cmd[0].file = NULL;
+			g_data.cmd[1].command = ft_strdup("head");
+			g_data.cmd[1].arg[0] = ft_strdup("-c 10");
+			g_data.cmd[1].arg[1] = NULL;
+			// g_data.cmd[0].file->file_name = ft_strdup("file");
+			// g_data.cmd[0].file->file_type = 1;
+			// g_data.cmd->arg[0] = ft_strdup("-la");
+			//g_data.cmd->arg = NULL;
 			while(i < l)
 			{
+				// printf("%d\n", g_data.n);
 				pipe(&g_data.pipe[g_data.output - 1]);
 				pid = fork();
 				if(!pid)
-					is_command();
+					is_command(&g_data.cmd[i], i);
+				g_data.n++;
+				g_data.output += 2;
+				g_data.input += 2;
+				i++;
+			}
+			i = 0;
+			while(i < 4)
+			{
+				close(g_data.pipe[i]);
 				i++;
 			}
 			i = 0;
