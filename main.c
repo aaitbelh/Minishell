@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/23 15:45:53 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/24 20:32:09 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,19 @@ void get_read_cmd()
 		{
 			// test = ft_split(cmd_shell, ' ');
 			int i = 0;
-			int l = 2;
+			int l = 1;
 			int pid;
 			g_data.n = 0;
 			g_data.input = 0;
 			g_data.output = 1;
-			g_data.number_cmd = 2;
+			g_data.number_cmd = 1;
 			g_data.cmd = malloc(sizeof(t_cmd) * 2);
 			g_data.pipe = malloc(sizeof(int) * (2 - 1));
 			g_data.cmd[0].command = ft_strdup("cat");
-			g_data.cmd[0].arg = malloc(sizeof(char *) * 2);
-			g_data.cmd[0].arg[0] = ft_strdup("/dev/random");
-			g_data.cmd[0].arg[1] = NULL;		
-			g_data.cmd[1].arg = malloc(sizeof(char *) * 2);
-			g_data.cmd[0].file = NULL;
-			g_data.cmd[1].command = ft_strdup("head");
-			g_data.cmd[1].arg[0] = ft_strdup("-c 10");
-			g_data.cmd[1].arg[1] = NULL;
+			g_data.cmd[0].arg = malloc(sizeof(char *) * 3);
+			g_data.cmd[0].arg[0] = ft_strdup("file1");
+			g_data.cmd[0].arg[1] = ft_strdup("file2");				
+			g_data.cmd[0].arg[2] = NULL;			
 			// g_data.cmd[0].file->file_name = ft_strdup("file");
 			// g_data.cmd[0].file->file_type = 1;
 			// g_data.cmd->arg[0] = ft_strdup("-la");
@@ -102,7 +98,7 @@ void get_read_cmd()
 				i++;
 			}
 			i = 0;
-			while(i < 4)
+			while(i < g_data.number_cmd * 2)
 			{
 				close(g_data.pipe[i]);
 				i++;

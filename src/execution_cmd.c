@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:04:47 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/23 15:38:13 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/24 20:39:27 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ int is_command(t_cmd *cmd, int i)
 	int  ii = 0 ;
 	char *cmd_path;
 	cmd_path = ft_check_acs(g_data.ev, cmd->command);
-	//printf("%s\n", cmd->arg[0]);
 	cmd->arg = fix_command(cmd->command, cmd->arg);
-	// printf("%s \n", g_data.cmd->arg[1]);
-	// printf("%s\n", g_data.cmd->arg[2]);
 	g_data.n++;
 	if(cmd->file && cmd->file->file_type == 0)
 	{
@@ -62,27 +59,28 @@ int is_command(t_cmd *cmd, int i)
 			exit(ft_join_error("Minishell: ", cmd->file->file_name, 1));
 		dup2(fd, 1);
 	}
-	if(i == 0)
+	if(g_data.number_cmd > 1)
 	{
-		fprintf(stderr, "i got inside here and iam the %s cmd\n", cmd->command);
-		close(g_data.pipe[g_data.input]);
-		dup2(g_data.pipe[g_data.output], 1);
-	}
-	else if(i == g_data.number_cmd - 1)
-	{
-		dup2(g_data.pipe[g_data.input - 2], 0);
-		while(ii < (g_data.number_cmd * 2) - 2)
+		if(i == 0)
 		{
-			close(g_data.pipe[ii]);
-			ii++;
+			close(g_data.pipe[g_data.input]);
+			dup2(g_data.pipe[g_data.output], 1);
 		}
-	}
-	else
-	{
-		fprintf(stderr, "i got inside here and iam the %s cmd\n", cmd->command);
-		dup2(g_data.pipe[g_data.input - 2], 0);
-		dup2(g_data.pipe[g_data.output], 1);
-		dup2(g_data.pipe[g_data.input], 0);
+		else if(i == g_data.number_cmd - 1)
+		{
+			dup2(g_data.pipe[g_data.input - 2], 0);
+			while(ii < (g_data.number_cmd * 2) - 2)
+			{
+				close(g_data.pipe[ii]);
+				ii++;
+			}
+		}
+		else
+		{
+			dup2(g_data.pipe[g_data.input - 2], 0);
+			dup2(g_data.pipe[g_data.output], 1);
+			dup2(g_data.pipe[g_data.input], 0);
+		}
 	}
 	execve(cmd_path, cmd->arg ,g_data.ev);
 	return (0);
