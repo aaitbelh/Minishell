@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/23 15:09:46 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:41:07 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_file
 typedef struct s_cmd
 {
 	char	*command;
+	int		p_herdoc;
 	char	**arg;
 	t_file	*file;
 }	t_cmd;
@@ -50,6 +51,7 @@ typedef struct s_data
 	int input;
 	int output;
 	int number_cmd;
+	int number_file;
 	struct s_cmd *cmd;
 }	t_data;
 
@@ -82,4 +84,5 @@ char	*ft_strjoin_gnl(char *s1, char *s2);
 int		is_command(t_cmd *cmd, int i);
 char	*ft_check_acs(char **env, char *cmd);
 char **fix_command(char *cmd, char **args);
+int	is_there_herdoc();
 # endif

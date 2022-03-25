@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/24 20:32:09 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:54:13 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void get_read_cmd()
 			test = ft_split(cmd_shell, ' ');
 			ft_cd(test);
 		}
-		if(!strcmp(cmd_shell, "pwd"))
+		else if(!strcmp(cmd_shell, "pwd"))
 		{
 			ft_pwd();
 		}
-		if(!ft_strncmp(cmd_shell, "echo", 4))
+		else if(!ft_strncmp(cmd_shell, "echo", 4))
 		{
 			test = ft_split(cmd_shell, ' ');
 			ft_echo(&test[1]);
@@ -73,18 +73,36 @@ void get_read_cmd()
 			g_data.n = 0;
 			g_data.input = 0;
 			g_data.output = 1;
-			g_data.number_cmd = 1;
+			g_data.number_cmd = 2;
+			g_data.number_file = 2;
 			g_data.cmd = malloc(sizeof(t_cmd) * 2);
-			g_data.pipe = malloc(sizeof(int) * (2 - 1));
-			g_data.cmd[0].command = ft_strdup("cat");
-			g_data.cmd[0].arg = malloc(sizeof(char *) * 3);
-			g_data.cmd[0].arg[0] = ft_strdup("file1");
-			g_data.cmd[0].arg[1] = ft_strdup("file2");				
-			g_data.cmd[0].arg[2] = NULL;			
+			g_data.cmd[0].file = malloc(sizeof(t_file) * 2);
+			g_data.cmd[1].file = malloc(sizeof(t_file) * 2);
+			g_data.cmd[0].file[0].file_type = 3;
+			g_data.cmd[0].file[0].file_name = ft_strdup("stp");	
+			g_data.cmd[0].file[1].file_type = 3;
+			g_data.cmd[0].file[1].file_name = ft_strdup("stp_2");	
+			g_data.cmd[1].file[0].file_type = 3;
+			g_data.cmd[1].file[0].file_name = ft_strdup("stop");	
+			g_data.cmd[1].file[1].file_type = 3;
+			g_data.cmd[1].file[1].file_name = ft_strdup("stop_oo");	
 			// g_data.cmd[0].file->file_name = ft_strdup("file");
 			// g_data.cmd[0].file->file_type = 1;
 			// g_data.cmd->arg[0] = ft_strdup("-la");
 			//g_data.cmd->arg = NULL;
+			if(is_there_herdoc())
+			{
+				printf("you press C^");
+				exit(1);
+			}
+			char buf[1000];
+			 int y = read(g_data.cmd[0].p_herdoc, buf, 1000);
+			 buf[y] = '\0';
+			printf(" ------------ %s\n", buf);
+			y = read(g_data.cmd[1].p_herdoc, buf, 1000);
+			 buf[y] = '\0';
+			printf("----------- %s\n", buf);
+			exit(0);
 			while(i < l)
 			{
 				// printf("%d\n", g_data.n);
