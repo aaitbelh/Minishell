@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/21 22:38:43 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/27 16:59:02 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,35 @@ void	get_args_files(int i, int k)
 	}
 }
 
+void	get_files_first(int i, int k)
+{
+	g_data.num_of_args[i] = 0;
+	g_data.num_of_files[i] =  0;
+	while (g_data.cmds[i][k])
+	{
+		while (g_data.cmds[i][k] == ' ')
+			k++;
+		if (g_data.cmds[i][k] == '<' || g_data.cmds[i][k] == '>')
+		{
+			g_data.num_of_files[i]++;
+			if (g_data.cmds[i][k] == '>' && g_data.cmds[i][k + 1] == '<')
+			{
+				write(1, "minishell: syntax error near unexpected token `<'\n", 50);
+				g_data.num_of_args[i] = 0;
+				g_data.num_of_files[i] = 0;
+				return ;
+			}
+			if (g_data.cmds[i][k] == '<' && g_data.cmds[i][k + 1] == '>')
+			{
+				write(1, "minishell: syntax error near unexpected token `>'\n", 50);
+				g_data.num_of_args[i] = 0;
+				g_data.num_of_files[i] = 0;
+				return ;
+			}
+		}
+	}
+}
+
 void	split_cmds(int i)
 {
 	int	k;
@@ -335,6 +364,10 @@ void	split_cmds(int i)
 		//printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
 		if (g_data.num_of_args != 0 || g_data.num_of_files != 0)
 			get_args_files(i, k);
+	}
+	else
+	{
+		get_files_first(i, k);
 	}
 }
 
@@ -399,10 +432,10 @@ int main(int ac, char **av, char **env)
 			break ;
 		i = 0;
 		data_init(g_data.line);
-		for (int i = 0; i < g_data.num_of_args[0] ; i++)
-			printf("%s\n", g_data.cmd[0].arg[i]);
-		for (int i = 0; i < g_data.num_of_files[0]; i++)
-			printf("%s: %d\n", g_data.cmd[0].file[i].file_name, g_data.cmd[0].file[i].file_type);
+		// for (int i = 0; i < g_data.num_of_args[0] ; i++)
+		// 	printf("%s\n", g_data.cmd[0].arg[i]);
+		//for (int i = 0; i < g_data.num_of_files[1]; i++)
+			//printf("%s: %d\n", g_data.cmd[1].file[i].file_name, g_data.cmd[1].file[i].file_type);
 	}
 	return (0);
 }
