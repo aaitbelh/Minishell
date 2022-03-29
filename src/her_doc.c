@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:11:17 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/26 15:00:09 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/29 21:53:56 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ void	her_doc(int *pipe,char *limiter)
 }
 
 
-int	is_there_herdoc()
+int	is_there_herdoc(void)
 {
 	int  i = -1;
 	int id;
 	int p[2];
 	int j;
 	int ret;
-	while(++i < g_data.x)
+	while(++i < g_data.x + 1)
 	{
 		g_data.cmd[i].p_herdoc = -1;
 		j = -1;
-		while(++j < *g_data.num_of_files)
+		while(++j < g_data.num_of_files[i])
 		{
-			if(g_data.cmd[i].file[j].file_type == 3)
+			if(g_data.cmd[i].file[j].file_type == 2)
 			{
 				pipe(p);
 				if(g_data.cmd[i].p_herdoc != -1)
