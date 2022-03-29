@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/27 16:59:02 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/29 16:16:07 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ void	get_command(int k, int j, int i)
 
 void	get_num_of_args_files(int i, int k)
 {
-	g_data.num_of_args[i] = 0;
-	g_data.num_of_files[i] = 0;
 	while (g_data.cmds[i][k])
 	{
 		while (g_data.cmds[i][k] == ' ')
@@ -165,19 +163,13 @@ void	get_num_of_args_files(int i, int k)
 	}
 }
 
-void	get_args_files(int i, int k)
+void	get_args_files(int i, int k, int b)
 {
 	int	j;
 	int	a;
-	int	b;
 	int	x;
 
 	a = 0;
-	b = 0;
-	if (g_data.num_of_args != 0)
-		g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args[i]));
-	if (g_data.num_of_files != 0)
-		g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files[i]));
 	while (g_data.cmds[i][k])
 	{
 		while (g_data.cmds[i][k] == ' ')
@@ -295,14 +287,14 @@ void	get_args_files(int i, int k)
 			b++;
 		}
 	}
+	g_data.cmd[i].arg[a] = NULL;
 }
 
-void	get_files_first(int i, int k)
+int	get_num_of_files(int i, int k)
 {
-	g_data.num_of_args[i] = 0;
-	g_data.num_of_files[i] =  0;
 	while (g_data.cmds[i][k])
 	{
+		
 		while (g_data.cmds[i][k] == ' ')
 			k++;
 		if (g_data.cmds[i][k] == '<' || g_data.cmds[i][k] == '>')
@@ -313,17 +305,184 @@ void	get_files_first(int i, int k)
 				write(1, "minishell: syntax error near unexpected token `<'\n", 50);
 				g_data.num_of_args[i] = 0;
 				g_data.num_of_files[i] = 0;
-				return ;
+				return (0);
 			}
 			if (g_data.cmds[i][k] == '<' && g_data.cmds[i][k + 1] == '>')
 			{
 				write(1, "minishell: syntax error near unexpected token `>'\n", 50);
 				g_data.num_of_args[i] = 0;
 				g_data.num_of_files[i] = 0;
-				return ;
+				return (0);
+			}
+			if (g_data.cmds[i][k + 1] == '>' || g_data.cmds[i][k + 1] == '<')
+				k += 2;
+			else
+				k++;
+			while (g_data.cmds[i][k] == ' ')
+				k++;
+			if (g_data.cmds[i][k] == '>')
+			{
+				write(1, "minishell: syntax error near unexpected token `>'\n", 50);
+				g_data.num_of_args[i] = 0;
+				g_data.num_of_files[i] = 0;
+				return (0);
+			}
+			if (g_data.cmds[i][k] == '<')
+			{
+				write(1, "minishell: syntax error near unexpected token `<'\n", 50);
+				g_data.num_of_args[i] = 0;
+				g_data.num_of_files[i] = 0;
+				return (0);
+			}
+			while (g_data.cmds[i][k] != ' ' && g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<')
+			{
+				if (!g_data.cmds[i][k])
+					break ;
+				if (g_data.cmds[i][k] == 34)
+				{
+					k++;
+					while (g_data.cmds[i][k] != 34)
+						k++;
+				}
+				else if (g_data.cmds[i][k] == 39)
+				{
+					k++;
+					while (g_data.cmds[i][k] != 39)
+						k++;
+				}
+				k++;
+			}
+			
+		}
+		else
+			return (k);
+	}
+	return (k);
+}
+
+int	get_num_of_args_files_2(int i, int k)
+{
+	int	j;
+	g_data.num_of_args[i] = 0;
+	g_data.num_of_files[i] =  0;
+
+	k = get_num_of_files(i, k);
+	//printf("%d\n", k);
+	if (!k)
+		return (0);
+	j = k;
+	while (g_data.cmds[i][k] && g_data.cmds[i][k] != '>' &&
+		g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ')
+	{
+		if (g_data.cmds[i][k] == 34)
+		{
+			k++;
+			while (g_data.cmds[i][k] != 34)
+				k++;
+		}
+		else if (g_data.cmds[i][k] == 39)
+		{
+			k++;
+			while (g_data.cmds[i][k] != 39)
+				k++;
+		}
+		k++;
+	}
+	get_command(k, j, i);
+	while (g_data.cmds[i][k] == ' ')
+		k++;
+	get_num_of_args_files(i, k);
+	//printf("%d\n%d\n", g_data.num_of_args[i], g_data.num_of_files[i]);
+	return (j);
+}
+
+void	get_args_files_2(int i, int j, int k)
+{
+	int	a;
+	int	b;
+	int	h;
+	int x;
+
+	g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args[i] + 1));
+	g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files[i]));
+	a = 0;
+	b = 0;
+	while(k != j)
+	{
+		
+		if (g_data.cmds[i][k] == '>')
+		{
+			if (g_data.cmds[i][k + 1] == '>')
+			{
+				g_data.cmd[i].file[b].file_type = APPOUT;
+				k += 2;
+			}
+			else
+			{
+				g_data.cmd[i].file[b].file_type = OUT;
+				k++;
 			}
 		}
+		else if (g_data.cmds[i][k] == '<')
+		{
+			if (g_data.cmds[i][k + 1] == '<')
+			{
+				g_data.cmd[i].file[b].file_type = HERDOC;
+				k += 2;
+			}
+			else
+			{
+				g_data.cmd[i].file[b].file_type = IN;
+				k++;
+			}
+		}
+		while (g_data.cmds[i][k] == ' ')
+			k++;
+		h = k;
+		while (g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<' && g_data.cmds[i][k] != ' ' && g_data.cmds[i][k])
+		{
+			if (g_data.cmds[i][k] == 39)
+			{
+				k++;
+				while(g_data.cmds[i][k] != 39)
+					k++;
+			}
+			else if (g_data.cmds[i][k] == 34)
+			{
+				k++;
+				while (g_data.cmds[i][k] != 34)
+					k++;
+			}
+			k++;
+		}
+		g_data.cmd[i].file[b].file_name = malloc(sizeof(char ) * (k - h + 1));
+		x = 0;
+		while (h != k && g_data.cmds[i][h])
+		{
+			if (g_data.cmds[i][h] == 39)
+			{
+				h++;
+				while (g_data.cmds[i][h] != 39)
+					g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][h++];
+			}
+			else if (g_data.cmds[i][h] == 34)
+			{
+				h++;
+				while (g_data.cmds[i][h] != 34)
+					g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][h++];
+			}
+			else
+				g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][h];
+			h++;
+		}
+		g_data.cmd[i].file[b].file_name[x] = 0;
+		b++;
+		while (g_data.cmds[i][k] == ' ')
+			k++;
 	}
+	while (g_data.cmds[i][k] != ' ' && g_data.cmds[i][k] != '>' && g_data.cmds[i][k] != '<' && g_data.cmds[i][k])
+		k++;
+	get_args_files(i, k, b);
 }
 
 void	split_cmds(int i)
@@ -360,14 +519,18 @@ void	split_cmds(int i)
 		get_command(k, j, i);
 		while (g_data.cmds[i][k] == ' ')
 			k++;
+		g_data.num_of_args[i] = 0;
+		g_data.num_of_files[i] = 0;
 		get_num_of_args_files(i, k);
-		//printf("%d\n%d\n", g_data.num_of_args, g_data.num_of_files);
-		if (g_data.num_of_args != 0 || g_data.num_of_files != 0)
-			get_args_files(i, k);
+		g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args[i] + 1));
+		g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files[i]));
+		get_args_files(i, k, 0);
 	}
 	else
 	{
-		get_files_first(i, k);
+		j = get_num_of_args_files_2(i, k);
+		//printf("%d\n", j);
+		get_args_files_2(i, j, k);
 	}
 }
 
@@ -432,10 +595,11 @@ int main(int ac, char **av, char **env)
 			break ;
 		i = 0;
 		data_init(g_data.line);
-		// for (int i = 0; i < g_data.num_of_args[0] ; i++)
-		// 	printf("%s\n", g_data.cmd[0].arg[i]);
-		//for (int i = 0; i < g_data.num_of_files[1]; i++)
-			//printf("%s: %d\n", g_data.cmd[1].file[i].file_name, g_data.cmd[1].file[i].file_type);
+		for (int i = 0; g_data.cmd[0].arg[i] ; i++)
+			printf("%s\n", g_data.cmd[0].arg[i]);
+		for (int i = 0; i < g_data.num_of_files[0]; i++)
+			printf("%s: %d\n", g_data.cmd[0].file[i].file_name, g_data.cmd[0].file[i].file_type);
+		printf("%s\n", g_data.cmd[0].command);
 	}
 	return (0);
 }
