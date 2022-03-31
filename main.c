@@ -6,14 +6,14 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 16:36:45 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/31 22:44:50 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
 
-int is_builtins(t_cmd *cmd)
+void is_builtins(t_cmd *cmd)
 {
 	int	i;
 
@@ -27,9 +27,7 @@ int is_builtins(t_cmd *cmd)
 	else if (!strcmp("export", cmd->command))
 		ft_export(cmd->arg);
 	else if (!strcmp("unset", cmd->command))
-	{
 		unset(cmd->arg);
-	}
 	else if (!strcmp("exit", cmd->command))
 		ft_exit(cmd);
 	else if(!strcmp("env", cmd->command))
@@ -41,18 +39,19 @@ int is_builtins(t_cmd *cmd)
 			i++;
 		}
 	}
-	else
-		return (1);
-	return (0);
-	
 }
 
-int	wh_typeit(t_cmd *cmd, int i)
+void red_in_main(t_cmd *cmd)
 {
 
-	int out;
-	
-	if(!is_builtins(cmd))
+	g_data.out = dup(1);
+	g_data.in = dup(0);
+	red_files(cmd, 0);	
+}
+
+int	wh_typeit(t_cmd *cmd)
+{
+	if(!strcmp(cmd->command, "cd") || !strcmp(cmd->command, "pwd") || !strcmp(cmd->command, "echo") || !strcmp(cmd->command, "export") || !strcmp(cmd->command, "unset") ||!strcmp(cmd->command, "exit") || !strcmp(cmd->command, "env"))
 		return (1);
 	return (0);
 }
@@ -69,7 +68,7 @@ void start_exec()
 	{
 		if(!is_there_herdoc())
 		{
-			if (!wh_typeit(&g_data.cmd[i], i))
+			if (!wh_typeit(&g_data.cmd[i]))
 			{
 				pid = fork();
 				if(!pid)
@@ -79,8 +78,16 @@ void start_exec()
 					is_command(&g_data.cmd[i], 0);
 					exit(1);
 				}
-			ret = waitpid(pid, NULL, 0);
-		}
+				ret = waitpid(pid, NULL, 0);
+			}
+			else
+			{
+				if(g_data.num_of_files[0] != 0)
+					red_in_main(&g_data.cmd[0]);
+				is_builtins(&g_data.cmd[i]);
+				dup2(g_data.out, 1);
+				dup2(g_data.in, 0);
+			}
 		}
 	}
 	else

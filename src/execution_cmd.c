@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:04:47 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 11:22:57 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/31 22:29:11 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int is_command(t_cmd *cmd, int i)
 {
 	char *cmd_path;
 
-	cmd->ev = g_data.ev;
 	if(g_data.x >= 1)
 	{
 		if(i == 0)
@@ -61,10 +60,13 @@ int is_command(t_cmd *cmd, int i)
 	}
 	red_files(cmd, i);
 	if (wh_typeit(cmd))
+	{
+		is_builtins(cmd);
 		exit(1);
+	}
 	cmd_path = ft_check_acs(g_data.ev, cmd->command);
 	cmd->arg = fix_command(cmd->command, cmd->arg);
-	if((execve(cmd_path, cmd->arg,cmd->ev)) == -1)
+	if((execve(cmd_path, cmd->arg, g_data.ev)) == -1)
 		return (0);
 	return (0);
 }
