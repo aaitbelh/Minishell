@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:51:42 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 11:48:51 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:33:48 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ char	*ft_check_acs(char **env, char *cmd)
 		else
 			ft_error_ex("Permission denied error!!", 1);
 	}
-	// if(cmd[0] == '\0')
-	// 	join_th_errors("minishell: ", &cmd[0], ": command not found", 127);
+	if (cmd[0] == '\0')
+		join_th_errors("minishell: ", &cmd[0], ": command not found", 127);
 	cmd = ft_strjoin("/", cmd);
 	j = find_path(env);
 	string = ft_split(env[j] + 5, ':');

@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:42:20 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/18 22:05:13 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:01:09 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void unset(char **str)
 	int i;
 	int	j;
 
-	i = 1;
-	if(!str[1])
-		return ;
+	i = 0;
+	if(!str)
+		return;
 	else
 	{
 		while(str[i])

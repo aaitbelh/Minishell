@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 13:07:08 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:36:45 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int is_builtins(t_cmd *cmd)
 	else if (!strcmp("export", cmd->command))
 		ft_export(cmd->arg);
 	else if (!strcmp("unset", cmd->command))
+	{
 		unset(cmd->arg);
+	}
 	else if (!strcmp("exit", cmd->command))
 		ft_exit(cmd);
 	else if(!strcmp("env", cmd->command))
@@ -45,11 +47,11 @@ int is_builtins(t_cmd *cmd)
 	
 }
 
-int	wh_typeit(t_cmd *cmd)
+int	wh_typeit(t_cmd *cmd, int i)
 {
-	int	i;
 
-	i = 0;
+	int out;
+	
 	if(!is_builtins(cmd))
 		return (1);
 	return (0);
@@ -67,7 +69,7 @@ void start_exec()
 	{
 		if(!is_there_herdoc())
 		{
-			if (!wh_typeit(&g_data.cmd[i]))
+			if (!wh_typeit(&g_data.cmd[i], i))
 			{
 				pid = fork();
 				if(!pid)
@@ -84,27 +86,31 @@ void start_exec()
 	else
 	{
 		g_data.pipe = malloc(sizeof(int) * g_data.x * 2);
-		while(i < g_data.x + 1)
+		if(!is_there_herdoc())
 		{
-			pipe(&g_data.pipe[g_data.output - 1]);
-			pid = fork();
-			if(!pid)
-			{
-				signal(SIGINT, SIG_DFL);
-				signal(SIGQUIT, SIG_DFL);
-				is_command(&g_data.cmd[i],i);
+			while(i < g_data.x + 1)
+			{	
+					pipe(&g_data.pipe[g_data.output - 1]);
+					pid = fork();
+					if(!pid)
+					{
+						signal(SIGINT, SIG_DFL);
+						signal(SIGQUIT, SIG_DFL);
+						is_command(&g_data.cmd[i],i);
+						exit(1);
+					}
+					if(i != g_data.x)
+						close(g_data.pipe[g_data.output]);
+					if(i != 0)
+						close(g_data.pipe[g_data.input - 2]);
+					g_data.output += 2;
+					g_data.input += 2;
+					i++;
 			}
-			if(i != g_data.x)
-				close(g_data.pipe[g_data.output]);
-			if(i != 0)
-				close(g_data.pipe[g_data.input - 2]);
-			g_data.output += 2;
-			g_data.input += 2;
-			i++;
+			i = -1;
+			while(++i < (g_data.x + 1))
+				waitpid(-1,  NULL, 0);	
 		}
-		i = -1;
-		while(++i < (g_data.x + 1))
-			waitpid(-1,  NULL, 0);		
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/29 15:48:40 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:13:50 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		is_there_herdoc();
 int		ft_exit(t_cmd *cmd);
 int		join_th_errors(char *s1, char *s2, char *s3, int Exit);
 int		check_allnum(char *str);
-int		wh_typeit(t_cmd *cmd);
+int		wh_typeit(t_cmd *cmd, int i);
 void	go_to_env(char *path);
 void	ft_print_it(char **str, int i);
 void	red_files(t_cmd *cmd, int i);
