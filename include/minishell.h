@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/21 22:02:10 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/31 01:30:50 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define HERDOC 2
 # define APPOUT 3
 
-struct s_data g_data;
+struct s_data	g_data;
 
 typedef struct s_file
 {
@@ -58,6 +58,17 @@ typedef struct s_data
 }	t_data;
 
 char	**cpy_env(char **str);
-void	rl_replace_line (char *text, int clear_undo);
+void	rl_replace_line(char *text, int clear_undo);
+void	get_command(int k, int j, int i);
+void	get_num_of_args_files(int i, int k);
+void	get_args_files(int i, int k, int b);
+int		skip_quotes(int i, int k);
+int		get_num_of_args_files_2(int i, int k);
+void	get_args_files_2(int i, int j, int k);
+int		check_error(int i, int k);
+int		check_error_2(int i, int k);
+int		get_file_type(int i, int k, int b);
+int		check_len(int i, int k);
+void	cpy_file_name(int i, int k, int j, int b);
 
 #endif

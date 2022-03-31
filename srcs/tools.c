@@ -3,38 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/10 14:27:37 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:09:55 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char **cpy_env(char **str)
+char	**cpy_env(char **str)
 {
-	char **table;
-	int	i;
-	int	j;
+	char	**table;
+	int		i;
+	int		j;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	table = malloc(sizeof(char *) * i);
-	if(!table)
+	if (!table)
 		return (NULL);
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		j = 0;
-		table[i] = malloc(sizeof(char ) *  strlen(str[i]));
-		while(str[i][j])
+		table[i] = malloc(sizeof(char ) * strlen(str[i]));
+		while (str[i][j])
 		{
 			table[i][j] = str[i][j];
 			j++;
 		}
 		i++;
 	}
-	return(table);
+	return (table);
+}
+
+void	get_command(int k, int j, int i)
+{
+	int	x;
+
+	g_data.cmd[i].command = malloc(sizeof(char ) * (k - j + 1));
+	x = 0;
+	while (j != k)
+	{
+		if (g_data.cmds[i][j] == 39)
+		{
+			j++;
+			while (g_data.cmds[i][j] != 39)
+				g_data.cmd[i].command[x++] = g_data.cmds[i][j++];
+		}
+		else if (g_data.cmds[i][j] == 34)
+		{
+			j++;
+			while (g_data.cmds[i][j] != 34)
+				g_data.cmd[i].command[x++] = g_data.cmds[i][j++];
+		}
+		else
+			g_data.cmd[i].command[x++] = g_data.cmds[i][j];
+		j++;
+	}
+	g_data.cmd[i].command[x] = 0;
 }
