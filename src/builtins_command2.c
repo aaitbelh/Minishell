@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 21:46:37 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/28 18:15:45 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:45:01 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,29 @@ void	go_to_env(char *path)
 int ft_exit(t_cmd *cmd)
 {
 	int	i;
-	i = 1;
 
+	i = 0;
 	if(!cmd->arg[0])
+	{
+		write(1,"exit\n", ft_strlen("exit\n"));
 		exit(0);
-	if(check_allnum(cmd->arg[0]))
-		exit(join_th_errors("minishell: exit: ", cmd->arg[0], "numeric argument required", 255));
+	}
+	if(!check_allnum(cmd->arg[0]))
+	{
+		write(1,"exit\n", ft_strlen("exit\n"));
+		join_th_errors("minishell: exit: ", cmd->arg[0], ": numeric argument required 1", 255);
+	}
 	while(cmd->arg[i])
 		i++;
 	if(i != 1)
 		return (ft_error_ret("minishell : exit: too many arguments", 1));
 	else
 	{
-		if(ft_atoi(cmd->arg[0]) > 0 && ft_atoi(cmd->arg[0]) < (int)9223372036854775807L)
+		write(1,"exit\n", ft_strlen("exit\n"));
+		if(ft_atoi(cmd->arg[0]) >= 0 && ft_atoi(cmd->arg[0]) <= 9223372036854775807L)
 			exit(ft_atoi(cmd->arg[0]) % 256);
-		else if(ft_atoi(cmd->arg[0]) > (int)9223372036854775807L)
-		{
-			join_th_errors("minishell: exit: ", cmd->arg[0], "numeric argument required", 1);
-			exit(256 % atoi(cmd->arg[0]));
-		}
-		else if(ft_atoi(cmd->arg[0]) < 0 && ft_atoi(cmd->arg[0]) > (int )(-9223372036854775807) - 1)
-		{
-			join_th_errors("minishell: exit: ", cmd->arg[0], "numeric argument required", 1);
+		else if(ft_atoi(cmd->arg[0]) < 0 && (long)ft_atoi(cmd->arg[0]) >= (-9223372036854775807 - 1))
 			exit(atoi(cmd->arg[0]) % 256 + 256);
-		}
-		else
-		{
-			join_th_errors("minishell: exit: ", cmd->arg[0], "numeric argument required", 1);
-			exit(1);
-		}
 	}
 	return (1);
 }

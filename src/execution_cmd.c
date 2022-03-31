@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:04:47 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/29 15:55:23 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/31 11:22:57 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,5 @@ int is_command(t_cmd *cmd, int i)
 	cmd->arg = fix_command(cmd->command, cmd->arg);
 	if((execve(cmd_path, cmd->arg,cmd->ev)) == -1)
 		return (0);
-		
 	return (0);
 }

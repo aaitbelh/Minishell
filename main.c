@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/29 23:46:02 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:07:08 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,22 @@ void start_exec()
 	int ret;
 	g_data.output = 1;
 	g_data.input = 0;
-	is_there_herdoc();
 	if(g_data.x == 0)
 	{
-		if (!wh_typeit(&g_data.cmd[i]))
+		if(!is_there_herdoc())
 		{
-			pid = fork();
-			if(!pid)
+			if (!wh_typeit(&g_data.cmd[i]))
 			{
-				signal(SIGINT, SIG_DFL);
-				signal(SIGQUIT, SIG_DFL);
-				is_command(&g_data.cmd[i], 0);
-			}
-		ret = waitpid(pid, NULL, 0);
+				pid = fork();
+				if(!pid)
+				{
+					signal(SIGINT, SIG_DFL);
+					signal(SIGQUIT, SIG_DFL);
+					is_command(&g_data.cmd[i], 0);
+					exit(1);
+				}
+			ret = waitpid(pid, NULL, 0);
+		}
 		}
 	}
 	else
@@ -103,6 +106,12 @@ void start_exec()
 		while(++i < (g_data.x + 1))
 			waitpid(-1,  NULL, 0);		
 	}
+}
+
+void	handler_2(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
 }
 
 void	handler(int sig)
@@ -686,6 +695,7 @@ int main(int ac, char **av, char **env)
 		g_data.sa.sa_handler = &handler;
 		sigaction(SIGINT, &g_data.sa, NULL);
 		g_data.line = readline("minishell$: ");
+		g_data.sa.sa_handler = &handler_2;
 		sigaction(SIGINT, &g_data.sa, NULL);
 		if (!g_data.line)
 			break ;

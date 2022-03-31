@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 11:55:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/26 15:44:01 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:01:46 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int	check_allnum(char *str)
 	i  =  0 ;
 	while(str[i])
 	{
-		if(!(str[i] >= '0' && str[i] <= '9'))
+		if((!(str[i] >= '0' && str[i] <= '9')) && (str[i] != '-' && str[i] != '+'))
 			return (0);
+		i++;
 	}
 	return (1);
 }
