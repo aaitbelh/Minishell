@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 12:47:59 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/31 22:49:26 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ char	**cpy_env(char **str)
 	return (table);
 }
 
+int	handle_env_var(int i, int j, int *x)
+{
+	
+}
+
 void	get_command(int k, int j, int i)
 {
 	int	x;
@@ -59,6 +64,8 @@ void	get_command(int k, int j, int i)
 			while (g_data.cmds[i][j] != 34)
 				g_data.cmd[i].command[x++] = g_data.cmds[i][j++];
 		}
+		else if(g_data.cmds[i][j] == '$')
+			handle_env_var(i, j, &x);
 		else
 			g_data.cmd[i].command[x++] = g_data.cmds[i][j];
 		j++;
