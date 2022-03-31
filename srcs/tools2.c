@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 14:17:04 by alaajili          #+#    #+#             */
-/*   Updated: 2022/03/31 02:06:08 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:54:01 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int	check_error(int i, int k)
 {
 	if (g_data.cmds[i][k] == '>' && g_data.cmds[i][k + 1] == '<')
 	{
-		write(1, "minishell: syntax error near unexpected token `<'\n", 50);
+		printf("minishell: syntax error near unexpected token `<'\n");
 		g_data.num_of_args[i] = 0;
 		g_data.num_of_files[i] = 0;
 		return (0);
 	}
 	if (g_data.cmds[i][k] == '<' && g_data.cmds[i][k + 1] == '>')
 	{
-		write(1, "minishell: syntax error near unexpected token `>'\n", 50);
+		printf("minishell: syntax error near unexpected token `>'\n");
 		g_data.num_of_args[i] = 0;
 		g_data.num_of_files[i] = 0;
 		return (0);
@@ -35,14 +35,21 @@ int	check_error_2(int i, int k)
 {
 	if (g_data.cmds[i][k] == '>')
 	{
-		write(1, "minishell: syntax error near unexpected token `>'\n", 50);
+		printf("minishell: syntax error near unexpected token `>'\n");
 		g_data.num_of_args[i] = 0;
 		g_data.num_of_files[i] = 0;
 		return (0);
 	}
 	if (g_data.cmds[i][k] == '<')
 	{
-		write(1, "minishell: syntax error near unexpected token `<'\n", 50);
+		printf("minishell: syntax error near unexpected token `<'\n");
+		g_data.num_of_args[i] = 0;
+		g_data.num_of_files[i] = 0;
+		return (0);
+	}
+	if (!g_data.cmds[i][k])
+	{
+		printf("minishell: syntax error near unexpected token `newline'\n");
 		g_data.num_of_args[i] = 0;
 		g_data.num_of_files[i] = 0;
 		return (0);

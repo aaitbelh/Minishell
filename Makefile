@@ -1,6 +1,6 @@
 Name = minishell
 LIBFT = libft/libft.a
-SRCS = main.c srcs/tools.c srcs/tools2.c srcs/tools3.c srcs/tools4.c
+SRCS = main.c srcs/tools0.c srcs/tools.c srcs/tools2.c srcs/tools3.c srcs/tools4.c
 OBJS = $(SRCS:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra

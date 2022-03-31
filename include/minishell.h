@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 01:30:50 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/03/31 12:43:40 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ int		check_error_2(int i, int k);
 int		get_file_type(int i, int k, int b);
 int		check_len(int i, int k);
 void	cpy_file_name(int i, int k, int j, int b);
+void	handler(int sig);
+void	get_cmds(char *line, int x);
 
 #endif
