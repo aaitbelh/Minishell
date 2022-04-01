@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 22:34:12 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:31:23 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_export(char **path);
 int		syntax_check(char *str);
 void	add_bath_evx(char *str);
 char	**add_new(char *str);
-void	twoDfree(char **table);
+void	twodfree(char **table);
 char	**delete_it(int ind);
 void	unset(char **str);
 char	*ft_strjoin_gnl(char *s1, char *s2);
@@ -109,6 +109,13 @@ int		wh_typeit(t_cmd *cmd);
 void	go_to_env(char *path);
 void	ft_print_it(char **str, int i);
 void	red_files(t_cmd *cmd, int i);
-void is_builtins(t_cmd *cmd);
+void	is_builtins(t_cmd *cmd);
+void	start_exec();
+void	is_builtins(t_cmd *cmd);
+void	handler_2(int sig);
+void	handler(int sig);
+int		wh_typeit(t_cmd *cmd);
+void	red_in_main(t_cmd *cmd);
+
 
 # endif

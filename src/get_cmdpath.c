@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:51:42 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 23:37:21 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/01 09:54:29 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_is_path(char *cmd)
 		if (access(cmd, X_OK) == 0)
 			return (1);
 		else
-			ft_error_ex("Permission denied error!!", 1);
+			ft_error_ex("Permission denied error!!\n", 1);
 	}
 	return (0);
 }

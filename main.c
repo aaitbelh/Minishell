@@ -6,135 +6,16 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 22:44:50 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:26:04 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
 
-void is_builtins(t_cmd *cmd)
-{
-	int	i;
+// ls | < main.c cat > dd 
+// >> file_2
 
-	i = 0;
-	if(!strcmp("cd", cmd->command))
-		ft_cd(cmd->arg[0]);
-	else if(!strcmp("pwd", cmd->command))
-		ft_pwd();
-	else if(!strcmp("echo", cmd->command))
-		ft_echo(cmd->arg);
-	else if (!strcmp("export", cmd->command))
-		ft_export(cmd->arg);
-	else if (!strcmp("unset", cmd->command))
-		unset(cmd->arg);
-	else if (!strcmp("exit", cmd->command))
-		ft_exit(cmd);
-	else if(!strcmp("env", cmd->command))
-	{
-		while(g_data.ev[i])
-		{
-			if(strchr(g_data.ev[i], '='))
-				printf("%s\n", g_data.ev[i]);
-			i++;
-		}
-	}
-}
-
-void red_in_main(t_cmd *cmd)
-{
-
-	g_data.out = dup(1);
-	g_data.in = dup(0);
-	red_files(cmd, 0);	
-}
-
-int	wh_typeit(t_cmd *cmd)
-{
-	if(!strcmp(cmd->command, "cd") || !strcmp(cmd->command, "pwd") || !strcmp(cmd->command, "echo") || !strcmp(cmd->command, "export") || !strcmp(cmd->command, "unset") ||!strcmp(cmd->command, "exit") || !strcmp(cmd->command, "env"))
-		return (1);
-	return (0);
-}
-
-void start_exec()
-{
-	int i;
-	i = 0;
-	int pid;
-	int ret;
-	g_data.output = 1;
-	g_data.input = 0;
-	if(g_data.x == 0)
-	{
-		if(!is_there_herdoc())
-		{
-			if (!wh_typeit(&g_data.cmd[i]))
-			{
-				pid = fork();
-				if(!pid)
-				{
-					signal(SIGINT, SIG_DFL);
-					signal(SIGQUIT, SIG_DFL);
-					is_command(&g_data.cmd[i], 0);
-					exit(1);
-				}
-				ret = waitpid(pid, NULL, 0);
-			}
-			else
-			{
-				if(g_data.num_of_files[0] != 0)
-					red_in_main(&g_data.cmd[0]);
-				is_builtins(&g_data.cmd[i]);
-				dup2(g_data.out, 1);
-				dup2(g_data.in, 0);
-			}
-		}
-	}
-	else
-	{
-		g_data.pipe = malloc(sizeof(int) * g_data.x * 2);
-		if(!is_there_herdoc())
-		{
-			while(i < g_data.x + 1)
-			{	
-					pipe(&g_data.pipe[g_data.output - 1]);
-					pid = fork();
-					if(!pid)
-					{
-						signal(SIGINT, SIG_DFL);
-						signal(SIGQUIT, SIG_DFL);
-						is_command(&g_data.cmd[i],i);
-						exit(1);
-					}
-					if(i != g_data.x)
-						close(g_data.pipe[g_data.output]);
-					if(i != 0)
-						close(g_data.pipe[g_data.input - 2]);
-					g_data.output += 2;
-					g_data.input += 2;
-					i++;
-			}
-			i = -1;
-			while(++i < (g_data.x + 1))
-				waitpid(-1,  NULL, 0);	
-		}
-	}
-}
-
-void	handler_2(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-}
-
-void	handler(int sig)
-{
-	(void)sig;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
 
 void	cpy_cmds(int i, int j, int k)
 {
