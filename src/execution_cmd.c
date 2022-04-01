@@ -6,58 +6,57 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:04:47 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 22:29:11 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/01 00:40:19 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char **fix_command(char *cmd, char **args)
+void	redirect_pipes(int i)
+{
+	if (i == 0)
+	{
+		close(g_data.pipe[g_data.input]);
+		dup2(g_data.pipe[g_data.output], 1);
+	}
+	else if (i == g_data.x)
+		dup2(g_data.pipe[g_data.input - 2], 0);
+	else
+	{
+		dup2(g_data.pipe[g_data.output], 1);
+		dup2(g_data.pipe[g_data.input - 2], 0);
+		close(g_data.pipe[g_data.input]);
+	}
+}
+
+char	**fix_command(char *cmd, char **args)
 {
 	char	**new_arg;
-	int i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
-	j = 1;	
+	j = 1;
 	while (args && args[i])
 		i++;
 	new_arg = malloc(sizeof(char *) * (i + 2));
 	i = 1;
 	new_arg[0] = ft_strdup(cmd);
-	// free(cmd);
-	while(args && args[i - 1])
+	while (args && args[i - 1])
 	{
 		new_arg[i] = args[i - 1];
-		i++; 	
+		i++;
 	}
 	new_arg[i] = NULL;
 	return (new_arg);
 }
 
-
-int is_command(t_cmd *cmd, int i)
+int	is_command(t_cmd *cmd, int i)
 {
-	char *cmd_path;
+	char	*cmd_path;
 
-	if(g_data.x >= 1)
-	{
-		if(i == 0)
-		{
-			close(g_data.pipe[g_data.input]);
-			dup2(g_data.pipe[g_data.output], 1);
-		}
-		else if(i == g_data.x)
-		{
-			dup2(g_data.pipe[g_data.input - 2], 0);
-		}
-		else
-		{
-			dup2(g_data.pipe[g_data.output], 1);
-			dup2(g_data.pipe[g_data.input - 2], 0);
-			close(g_data.pipe[g_data.input]);
-		}
-	}
+	if (g_data.x >= 1)
+		redirect_pipes(i);
 	red_files(cmd, i);
 	if (wh_typeit(cmd))
 	{
@@ -66,7 +65,7 @@ int is_command(t_cmd *cmd, int i)
 	}
 	cmd_path = ft_check_acs(g_data.ev, cmd->command);
 	cmd->arg = fix_command(cmd->command, cmd->arg);
-	if((execve(cmd_path, cmd->arg, g_data.ev)) == -1)
+	if ((execve(cmd_path, cmd->arg, g_data.ev)) == -1)
 		return (0);
 	return (0);
 }

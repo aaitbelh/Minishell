@@ -6,14 +6,13 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 16:07:40 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/01 00:36:44 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-
-void ft_print_it(char **str, int i)
+void	ft_print_it(char **str, int i)
 {
 	while (str[i])
 	{
@@ -55,7 +54,7 @@ void	ft_echo(char **str)
 	j = i;
 	ft_print_it(str, i);
 	if (j == 0)
-		write(1 , "\n", 1);
+		write(1, "\n", 1);
 }
 
 void	ft_cd(char *path)
@@ -67,7 +66,7 @@ void	ft_cd(char *path)
 	{
 		edit_oldpwd();
 		env = get_from_env("HOME=", 5, 5);
-		if(env && !env[0])
+		if (env && !env[0])
 		{
 			chdir(".");
 			return ;
@@ -75,7 +74,7 @@ void	ft_cd(char *path)
 		if (env && ft_strlen("HOME=") != ft_strlen(env))
 			ret = chdir(env);
 		if (ENOENT == errno)
-			ft_join_error("Minishell: cd:", path,  1);
+			ft_join_error("Minishell: cd:", path, 1);
 		if (!env)
 			ft_error_ret("Minishell : cd : HOME not set", 1);
 		edit_pwd();
