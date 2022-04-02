@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/01 17:31:23 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/02 22:41:21 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_data
 	char				*line;
 	char				*word;
 	char				**cmds;
+	char				*t;
 	struct sigaction	sb;
 	struct s_cmd *cmd;
 }	t_data;
@@ -116,6 +117,24 @@ void	handler_2(int sig);
 void	handler(int sig);
 int		wh_typeit(t_cmd *cmd);
 void	red_in_main(t_cmd *cmd);
+void	error_norm(char *str);
+
+//---------------------
+void	get_command(int k, int j, int i);
+void	get_num_of_args_files(int i, int k);
+void	get_args_files(int i, int k, int b);
+int		skip_quotes(int i, int k);
+int		get_num_of_args_files_2(int i, int k);
+void	get_args_files_2(int i, int j, int k);
+int		check_error(int i, int k);
+int		check_error_2(int i, int k);
+int		get_file_type(int i, int k, int b);
+int		check_len(int i, int k);
+void	cpy_file_name(int i, int k, int j, int b);
+void	get_cmds(char *line, int x);
+int		without_qoutes(int i, int j, int k);
+int		double_qoutes(int i, int j);
+int		single_qoutes(int i, int j);
 
 
 # endif

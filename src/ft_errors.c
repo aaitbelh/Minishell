@@ -6,11 +6,17 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 13:20:04 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 23:51:31 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:08:20 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	error_norm(char *str)
+{
+	join_th_errors("minishell: exit: ", str,
+		": numeric argument required", 255);
+}
 
 int	join_th_errors(char *s1, char *s2, char *s3, int Exit)
 {

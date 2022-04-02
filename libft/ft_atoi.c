@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:12:55 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/30 15:36:37 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:09:29 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ long	ft_atoi(char *str)
 		n = n * 10 + (str[i] - '0');
 		i++;
 		if (n > 9223372036854775807 && sig == 1)
-			join_th_errors("minishell: exit: ", str, ": numeric argument required", 255);
+			error_norm(str);
 		if (n > 9223372036854775807 && sig == -1)
-			join_th_errors("minishell: exit: ", str, ": numeric argument required", 255);
+			error_norm(str);
 	}
 	return ((n * sig));
 }

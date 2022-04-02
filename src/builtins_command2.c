@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 21:46:37 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 23:50:20 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:53:50 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_exit(t_cmd *cmd)
 	{
 		write(1, "exit\n", ft_strlen("exit\n"));
 		join_th_errors("minishell: exit: ", cmd->arg[0],
-			": numeric argument required 1", 255);
+			": numeric argument required", 255);
 	}
 	while (cmd->arg[i])
 		i++;
