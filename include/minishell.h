@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 12:43:40 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/02 21:42:47 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # define OUT 1
 # define HERDOC 2
 # define APPOUT 3
+
+# define SINGLE 39
+# define DOUBLE 34
 
 struct s_data	g_data;
 
@@ -48,7 +51,7 @@ typedef struct s_data
 	char				**cmds;
 	char				*word;
 	char				*line;
-	int					word_len;
+	char				*t;
 	int					*num_of_args;
 	int					*num_of_files;
 	int					x;
@@ -72,5 +75,8 @@ int		check_len(int i, int k);
 void	cpy_file_name(int i, int k, int j, int b);
 void	handler(int sig);
 void	get_cmds(char *line, int x);
+int		without_qoutes(int i, int j, int k);
+int		double_qoutes(int i, int j);
+int		single_qoutes(int i, int j);
 
 #endif

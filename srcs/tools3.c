@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 16:27:01 by alaajili          #+#    #+#             */
-/*   Updated: 2022/03/31 01:25:15 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/02 21:40:53 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,54 @@
 
 static void	cpy_arg(int i, int k, int j, int a)
 {
-	int	x;
-
-	x = 0;
-	g_data.cmd[i].arg[a] = malloc(sizeof(char ) * (k - j + 1));
+	g_data.cmd[i].arg[a] = ft_strdup("");
 	while (j != k)
 	{
 		if (g_data.cmds[i][j] == 39)
 		{
-			j++;
-			while (g_data.cmds[i][j] != 39)
-				g_data.cmd[i].arg[a][x++] = g_data.cmds[i][j++];
+			j = single_qoutes(i, j);
+			g_data.cmd[i].arg[a] = ft_strjoin(g_data.cmd[i].arg[a], g_data.t);
+			free(g_data.t);
 		}
 		else if (g_data.cmds[i][j] == 34)
 		{
-			j++;
-			while (g_data.cmds[i][j] != 34)
-				g_data.cmd[i].arg[a][x++] = g_data.cmds[i][j++];
+			j = double_qoutes(i, j);
+			g_data.cmd[i].arg[a] = ft_strjoin(g_data.cmd[i].arg[a], g_data.t);
+			free(g_data.t);
 		}
 		else
-			g_data.cmd[i].arg[a][x++] = g_data.cmds[i][j];
-		j++;
+		{
+			j = without_qoutes(i, j, k);
+			g_data.cmd[i].arg[a] = ft_strjoin(g_data.cmd[i].arg[a], g_data.t);
+			free(g_data.t);
+		}
 	}
-	g_data.cmd[i].arg[a][x] = 0;
 }
 
 void	cpy_file_name(int i, int k, int j, int b)
 {
-	int	x;
-
-	g_data.cmd[i].file[b].file_name = malloc(sizeof(char ) * (k - j + 1));
-	x = 0;
+	g_data.cmd[i].file[b].file_name = ft_strdup("");
 	while (j != k)
 	{
 		if (g_data.cmds[i][j] == 39)
 		{
-			j++;
-			while (g_data.cmds[i][j] != 39)
-				g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][j++];
+			j = single_qoutes(i, j);
+			g_data.cmd[i].file[b].file_name = ft_strjoin(g_data.cmd[i].file[b].file_name, g_data.t);
+			free(g_data.t);
 		}
 		else if (g_data.cmds[i][j] == 34)
 		{
-			j++;
-			while (g_data.cmds[i][j] != 34)
-				g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][j++];
+			j = double_qoutes(i, j);
+			g_data.cmd[i].file[b].file_name = ft_strjoin(g_data.cmd[i].file[b].file_name, g_data.t);
+			free(g_data.t);
 		}
 		else
-			g_data.cmd[i].file[b].file_name[x++] = g_data.cmds[i][j];
-		j++;
+		{
+			j = without_qoutes(i, j, k);
+			g_data.cmd[i].file[b].file_name = ft_strjoin(g_data.cmd[i].file[b].file_name, g_data.t);
+			free(g_data.t);
+		}
 	}
-	g_data.cmd[i].file[b].file_name[x] = 0;
 }
 
 int	get_file_type(int i, int k, int b)
