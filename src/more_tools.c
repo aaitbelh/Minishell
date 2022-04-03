@@ -6,12 +6,26 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 11:55:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/21 17:40:33 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/03/31 23:52:56 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+int	check_allnum(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((!(str[i] >= '0' && str[i] <= '9'))
+			&& (str[i] != '-' && str[i] != '+'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 char	*ft_strjoin_gnl(char *s1, char *s2)
 {
@@ -42,15 +56,14 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	return (str);
 }
 
-
 int	ret_indice_env(char **env, char *str)
 {
 	int	i;
 
 	i = 0;
-	while(env[i])
+	while (env[i])
 	{
-		if(!strncmp(env[i], str, ft_strlen(str)))
+		if (!strncmp(env[i], str, ft_strlen(str)))
 			return (i);
 		i++;
 	}

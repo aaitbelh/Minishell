@@ -6,11 +6,23 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:51:42 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/22 14:27:00 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/02 23:58:28 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	check_is_path(char *cmd)
+{
+	if (access(cmd, F_OK) == 0)
+	{
+		if (access(cmd, X_OK) == 0)
+			return (1);
+		else
+			ft_error_ex("Permission denied error!!\n", 1);
+	}
+	return (0);
+}
 
 static void	free_all(char **str)
 {
@@ -39,22 +51,28 @@ static int	find_path(char **env)
 	return (i);
 }
 
+char	**fin_and_split(char **env)
+{
+	int		j;
+	char	**string;
+
+	j = find_path(env);
+	string = ft_split(env[j] + 5, ':');
+	return (string);
+}
+
 char	*ft_check_acs(char **env, char *cmd)
 {
 	char	**string;
 	char	*check;
 	int		j;
 
-	if (access(cmd, F_OK) == 0)
-	{
-		if (access(cmd, X_OK) == 0)
-			return (cmd);
-		else
-			ft_error_ex("Permission denied error!!", 1);
-	}
+	if (check_is_path(cmd))
+		return (cmd);
+	if (cmd[0] == '\0')
+		ft_error_ex("minishell: : command not found\n", 255);
 	cmd = ft_strjoin("/", cmd);
-	j = find_path(env);
-	string = ft_split(env[j] + 5, ':');
+	string = fin_and_split(env);
 	j = 0;
 	while (string[j])
 	{
@@ -70,6 +88,6 @@ char	*ft_check_acs(char **env, char *cmd)
 	}
 	free_all(string);
 	if (access(cmd, F_OK != 0))
-		ft_error_ex("command not found\n", 1);
+		join_th_errors("minishell: ", &cmd[1], ": command not found", 127);
 	return (NULL);
 }
