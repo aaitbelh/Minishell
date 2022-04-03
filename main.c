@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/02 22:40:57 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:47:34 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
-void	init_data(int i, int k)
+int	init_data(int i, int k)
 {
 	g_data.num_of_args[i] = 0;
 	g_data.num_of_files[i] = 0;
-	get_num_of_args_files(i, k);
+	if (get_num_of_args_files(i, k) == 0)
+		return (0);
 	g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args[i] + 1));
 	g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files[i]));
+	return (1);
 }
 
-void	split_cmds(int i)
+int	split_cmds(int i)
 {
 	int	k;
 	int	j;
@@ -37,27 +39,32 @@ void	split_cmds(int i)
 	{
 		k = check_len(i, k);
 		get_command(k, j, i);
-		init_data(i, k);
+		if (init_data(i, k) == 0)
+			return (0);
 		get_args_files(i, k, 0);
 	}
 	else
 	{
 		j = get_num_of_args_files_2(i, k);
-		if (j)
-			get_args_files_2(i, j, k);
+		if (!j)
+			return (0);
+		get_args_files_2(i, j, k);
 	}
+	return (1);
 }
 
-void	handle_cmds(void)
+int	handle_cmds(void)
 {
 	int	i;
 
 	i = 0;
 	while (g_data.cmds[i])
 	{
-		split_cmds(i);
+		if (split_cmds(i) == 0)
+			return (0);
 		i++;
 	}
+	return (1);
 }
 
 int	pipe_error(char *line, int i)
@@ -65,7 +72,7 @@ int	pipe_error(char *line, int i)
 	i++;
 	while (line[i] == ' ')
 		i++;
-	if (line[i] == '|')
+	if (line[i] == '|' || line[i] == 0)
 	{
 		printf("minishell: syntax error near unexpected token `|'\n");
 		return (0);
@@ -73,7 +80,7 @@ int	pipe_error(char *line, int i)
 	return (1);
 }
 
-void	parse_line(char *line)
+int	parse_line(char *line)
 {
 	int	i;
 	int	t[2];
@@ -91,21 +98,26 @@ void	parse_line(char *line)
 		if (line[i] == '|' && t[0] + t[1] == 2)
 		{
 			if (pipe_error(line, i) == 0)
-				return ;
+				return (0);
 			g_data.x++;
 		}
 		i++;
 	}
 	if (t[0] + t[1] != 2)
+	{		
 		write(1, "minishell: syntax error: unclosed quote\n", 40);
+		return (0);
+	}
 	else
 	{
 		g_data.cmd = malloc(sizeof(t_cmd) * (g_data.x + 1));
 		g_data.num_of_args = malloc(sizeof(int ) * (g_data.x + 1));
 		g_data.num_of_files = malloc(sizeof(int ) * (g_data.x + 1));
 		get_cmds(line, g_data.x);
-		handle_cmds();
+		if (handle_cmds() == 0)
+			return (0);
 	}
+	return (1);
 }
 
 int	main(int ac, char **av, char **env)
@@ -119,7 +131,7 @@ int	main(int ac, char **av, char **env)
 	{
 		g_data.sa.sa_handler = &handler;
 		sigaction(SIGINT, &g_data.sa, NULL);
-		g_data.line = readline("minishell$: ");
+		g_data.line = readline("minishell-$: ");
 		g_data.sa.sa_handler = &handler_2;
 		sigaction(SIGINT, &g_data.sa, NULL);
 		if (!g_data.line)
@@ -130,8 +142,8 @@ int	main(int ac, char **av, char **env)
 		{	
 			if(!is_there_space(g_data.line))
 			{
-				parse_line(g_data.line);
-				start_exec();
+				if (parse_line(g_data.line) != 0)
+					start_exec();
 			}	
 		}
 	}

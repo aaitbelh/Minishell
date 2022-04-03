@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 14:17:04 by alaajili          #+#    #+#             */
-/*   Updated: 2022/03/31 13:54:01 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:17:33 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	to_the_next(int i, int k)
 	return (k);
 }
 
-void	get_num_of_args_files(int i, int k)
+int	get_num_of_args_files(int i, int k)
 {
 	while (g_data.cmds[i][k])
 	{
@@ -95,7 +95,7 @@ void	get_num_of_args_files(int i, int k)
 		{
 			g_data.num_of_files[i]++;
 			if (check_error(i, k) == 0)
-				return ;
+				return (0);
 			if (g_data.cmds[i][k + 1] == '>' || g_data.cmds[i][k + 1] == '<')
 				k += 2;
 			else
@@ -103,7 +103,7 @@ void	get_num_of_args_files(int i, int k)
 			while (g_data.cmds[i][k] == ' ')
 				k++;
 			if (check_error_2(i, k) == 0)
-				return ;
+				return (0);
 		}
 		else if (g_data.cmds[i][k])
 			g_data.num_of_args[i]++;
@@ -111,4 +111,5 @@ void	get_num_of_args_files(int i, int k)
 			k++;
 		k = to_the_next(i, k);
 	}
+	return (1);
 }

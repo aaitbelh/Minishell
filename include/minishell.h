@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/02 22:41:21 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:20:48 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	error_norm(char *str);
 
 //---------------------
 void	get_command(int k, int j, int i);
-void	get_num_of_args_files(int i, int k);
+int		get_num_of_args_files(int i, int k);
 void	get_args_files(int i, int k, int b);
 int		skip_quotes(int i, int k);
 int		get_num_of_args_files_2(int i, int k);

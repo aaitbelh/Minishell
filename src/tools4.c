@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 00:59:44 by alaajili          #+#    #+#             */
-/*   Updated: 2022/03/31 01:27:14 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/03 17:00:33 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ int	get_num_of_args_files_2(int i, int k)
 		k++;
 	}
 	get_command(k, j, i);
+	if (g_data.cmd[i].command[0] == '\0')
+		g_data.cmd[i].command = NULL;
 	while (g_data.cmds[i][k] == ' ')
 		k++;
-	get_num_of_args_files(i, k);
+	if (get_num_of_args_files(i, k) == 0)
+		return (0);
 	return (j);
 }
 
