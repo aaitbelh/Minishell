@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:51:42 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/02 23:58:28 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/03 01:51:34 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	free_all(char **str)
 	free(str);
 }
 
-static int	find_path(char **env)
+static int	find_path(char **env, char *cmd)
 {
 	int	i;
 
@@ -45,18 +45,19 @@ static int	find_path(char **env)
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "PATH=", ft_strlen("PATH=")))
-			break ;
+			return (i);
 		i++;
 	}
-	return (i);
+	join_th_errors("minisehll: ", &cmd[1], ": No such file or directory", 127);
+	return (-1);
 }
 
-char	**fin_and_split(char **env)
+char	**fin_and_split(char **env, char *cmd)
 {
 	int		j;
 	char	**string;
 
-	j = find_path(env);
+	j = find_path(env, cmd);
 	string = ft_split(env[j] + 5, ':');
 	return (string);
 }
@@ -72,7 +73,7 @@ char	*ft_check_acs(char **env, char *cmd)
 	if (cmd[0] == '\0')
 		ft_error_ex("minishell: : command not found\n", 255);
 	cmd = ft_strjoin("/", cmd);
-	string = fin_and_split(env);
+	string = fin_and_split(env, cmd);
 	j = 0;
 	while (string[j])
 	{
