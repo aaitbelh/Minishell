@@ -10,13 +10,13 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g
 
 all : $(Name)
 
 $(Name): $(OBJS)
 	make -C libft
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -L/Users/alaajili/.brew/opt/readline/lib -I/Users/alaajili/.brew/opt/readline/include  $(LIBFT) -o $(Name)
+	$(CC) $(CFLAGS) $(OBJS) -lreadline -L/Users/aaitbelh/.brew/opt/readline/lib -I/Users/aaitbelh/.brew/opt/readline/include  $(LIBFT) -o $(Name)
 
 clean :
 	make -C libft clean
