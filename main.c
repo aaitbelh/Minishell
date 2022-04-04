@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/04 02:25:12 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/04 02:31:57 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	g_data.ev = cpy_env(env);
+	g_data.exp = cpy_exp(env);
 	g_data.sb.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &g_data.sb, NULL);
 	while(1)
@@ -132,7 +133,6 @@ int	main(int ac, char **av, char **env)
 		g_data.sa.sa_handler = &handler;
 		sigaction(SIGINT, &g_data.sa, NULL);
 		g_data.line = readline("minishell-$: ");
-		// g_data.line = ft_strdup("> ptr");
 		g_data.sa.sa_handler = &handler_2;
 		sigaction(SIGINT, &g_data.sa, NULL);
 		if (!g_data.line)
