@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 01:25:10 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:58:23 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,9 @@ int	ft_export(char **path)
 	i = 0;
 	if (!path[0])
 	{
-		twodfree(g_data.exp);
-		g_data.exp = cpy_exp(g_data.ev);
-		while (g_data.exp[i])
-		{
-			printf("declare -x %s\n", g_data.exp[i]);
-			i++;
-		}
+		print_the_exp();
 		return (0);
 	}
-	i = 0;
 	while (path[i])
 	{
 		if (syntax_check(path[i]))

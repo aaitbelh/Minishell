@@ -6,11 +6,40 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:46:48 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/02 22:47:09 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:01:59 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+
+int	join_th_errors_re(char *s1, char *s2, char *s3, int ret)
+{
+	char	*tmp;
+	char	*new;
+
+	tmp = ft_strjoin(s1, s2);
+	new = ft_strjoin(tmp, s3);
+	free(tmp);
+	ft_putendl_fd(new, 2);
+	free(new);
+	g_data.ret = ret;
+	return (ret);
+}
+
+void	print_the_exp(void)
+{
+	int	i;
+
+	i = 0;
+	twodfree(g_data.exp);
+	g_data.exp = cpy_exp(g_data.ev);
+	while (g_data.exp[i])
+	{
+		printf("declare -x %s\n", g_data.exp[i]);
+		i++;
+	}
+}
 
 void	cpy_cmds(int i, int j, int k)
 {

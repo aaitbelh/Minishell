@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 11:17:03 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 17:51:55 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:07:54 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	for_one_command(void)
 
 void	creat_child(int i)
 {
-
 	g_data.pid[i] = fork();
 	if (!g_data.pid[i])
 	{
@@ -92,7 +91,6 @@ void	start_exec(void)
 	}
 	else
 	{
-		
 		if (!is_there_herdoc())
 		{
 			declared_all();

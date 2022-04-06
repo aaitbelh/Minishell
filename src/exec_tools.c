@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:22:21 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 00:35:31 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:56:07 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	handler(int sig)
 
 int	wh_typeit(t_cmd *cmd)
 {
-	if(!cmd->command)
+	if (!cmd->command)
 		return (0);
 	if (!strcmp(cmd->command, "cd") || !strcmp(cmd->command, "pwd")
 		|| !strcmp(cmd->command, "echo") || !strcmp(cmd->command, "export")

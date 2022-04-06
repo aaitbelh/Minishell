@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:51:42 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/03 01:51:34 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:06:16 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	check_is_path(char *cmd)
 {
+	if (cmd[0] == '\0')
+		ft_error_ex("minishell: : command not found\n", 127);
 	if (access(cmd, F_OK) == 0)
 	{
 		if (access(cmd, X_OK) == 0)
@@ -70,8 +72,6 @@ char	*ft_check_acs(char **env, char *cmd)
 
 	if (check_is_path(cmd))
 		return (cmd);
-	if (cmd[0] == '\0')
-		ft_error_ex("minishell: : command not found\n", 255);
 	cmd = ft_strjoin("/", cmd);
 	string = fin_and_split(env, cmd);
 	j = 0;

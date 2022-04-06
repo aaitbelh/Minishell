@@ -6,13 +6,13 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 11:55:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 17:51:28 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:07:07 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	print_the_env()
+void	print_the_env(void)
 {
 	int	i;
 
@@ -78,7 +78,7 @@ int	ret_indice_env(char **env, char *str)
 	{
 		if (!ft_strncmp(env[i], str, ft_strlen(str)))
 		{
-			if(env[i][ft_strlen(str)] == '=')
+			if (env[i][ft_strlen(str)] == '=')
 				return (i);
 		}
 		i++;
