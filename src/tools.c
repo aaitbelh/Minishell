@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/02 22:45:59 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:29:23 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ int	handle_env_var(int i, int j)
 	char	*var;
 
 	j++;
+	if (g_data.cmds[i][j] == '?')
+	{
+		g_data.t = ft_strjoin(g_data.t, ft_itoa(g_data.ret));
+		return (j + 1);
+	}
 	p = j;
 	x = 0;
 	while(ft_isalnum(g_data.cmds[i][j]) || g_data.cmds[i][j] == '_')
