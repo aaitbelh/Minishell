@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/04 02:31:57 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/05 21:45:06 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ int	main(int ac, char **av, char **env)
 	g_data.ev = cpy_env(env);
 	g_data.exp = cpy_exp(env);
 	g_data.sb.sa_handler = SIG_IGN;
+	g_data.sb.sa_flags = SA_RESTART;
+	g_data.sa.sa_flags = SA_RESTART;
 	sigaction(SIGQUIT, &g_data.sb, NULL);
 	while(1)
 	{

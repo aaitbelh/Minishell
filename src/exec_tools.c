@@ -6,11 +6,19 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:22:21 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/04 02:24:26 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 00:35:31 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	the_exit_code(void)
+{
+	if (WIFSIGNALED(g_data.ret))
+		g_data.ret = 130;
+	else
+		g_data.ret = WEXITSTATUS(g_data.ret);
+}
 
 void	handler_2(int sig)
 {

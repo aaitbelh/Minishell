@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 21:46:37 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/02 17:53:50 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/05 18:26:15 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	go_to_env(char *path)
 	edit_oldpwd();
 	ret = chdir(path);
 	if (ENOENT == errno)
-		ft_join_error("Minishell : cd:", path, 1);
+		ft_join_error("Minishell : cd: ", path, 1);
 	else if (ret < 0)
-		ft_join_error("Minishell : cd:", path, 1);
+		ft_join_error("Minishell : cd: ", path, 1);
 	edit_pwd();
 }
 

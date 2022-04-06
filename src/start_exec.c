@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 11:17:03 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/04 02:18:47 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 00:57:49 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	is_builtins(t_cmd *cmd)
 
 void	for_one_command(void)
 {
-	int	ret;
 	int	pid;
 
 	if (!wh_typeit(&g_data.cmd[0]))
@@ -55,7 +54,8 @@ void	for_one_command(void)
 			is_command(&g_data.cmd[0], 0);
 			exit(1);
 		}
-		ret = waitpid(pid, NULL, 0);
+		waitpid(pid, &g_data.ret, 0);
+		the_exit_code();
 	}
 	else
 	{
@@ -112,7 +112,8 @@ void	start_exec(void)
 			}
 			i = -1;
 			while (++i < (g_data.x + 1))
-				waitpid(-1, NULL, 0);
+				waitpid(-1, &g_data.ret, 0);
+			the_exit_code();
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 18:13:34 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/01 00:04:44 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:24:43 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	syntax_check(char *str)
 
 	i = 1;
 	string = ft_split(str, '=');
-	if (string[0][0] != '_' && !ft_isalpha(string[0][0]))
+	if (!string[0] || (string[0][0] != '_' && !ft_isalpha(string[0][0])))
 		return (1);
 	while (string[0][i])
 	{

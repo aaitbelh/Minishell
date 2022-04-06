@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/04 16:58:38 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 00:55:22 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_echo(char **str)
 
 void	ft_cd(char *path)
 {
-	int		ret;
 	char	*env;
 
 	if (!path)
@@ -67,16 +66,17 @@ void	ft_cd(char *path)
 		edit_oldpwd();
 		env = get_from_env("HOME=", 5, 5);
 		if (!env)
+		{
 			ft_error_ret("Minishell : cd: HOME not set", 1);
+			return ;
+		}
 		if (env && !env[0])
 		{
 			chdir(".");
 			return ;
 		}
 		if (env && ft_strlen("HOME=") != ft_strlen(env))
-			ret = chdir(env);
-		if (ENOENT == errno)
-			ft_join_error("Minishell: cd:", path, 1);
+			go_to_env(env);
 		edit_pwd();
 		free(env);
 	}

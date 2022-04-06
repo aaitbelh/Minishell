@@ -6,11 +6,29 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:42:20 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/01 00:04:22 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 01:42:39 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	check_the_syn(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i]) && (str[i] != '_'))
+		{
+			join_th_errors_re("minishell: export: ", str,
+				": not valid inddentifier", 1);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 
 char	**delete_it(int ind)
 {
@@ -50,9 +68,13 @@ void	unset(char **str)
 	{
 		while (str[i])
 		{
-			j = ret_indice_env(g_data.ev, str[i]);
-			if (j != -1)
-				g_data.ev = delete_it(j);
+			if(check_the_syn(str[i]))
+			{
+				j = ret_indice_env(g_data.ev, str[i]);
+				printf("%d\n", i);
+				if (j != -1)
+					g_data.ev = delete_it(j);
+			}
 			i++;
 		}
 	}

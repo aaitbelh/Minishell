@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 11:55:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/03/31 23:52:56 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 01:19:54 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ int	ret_indice_env(char **env, char *str)
 	i = 0;
 	while (env[i])
 	{
-		if (!strncmp(env[i], str, ft_strlen(str)))
-			return (i);
+		if (!ft_strncmp(env[i], str, ft_strlen(str)))
+		{
+			if(env[i][ft_strlen(str)] == '=')
+				return (i);
+		}
 		i++;
 	}
 	return (-1);
