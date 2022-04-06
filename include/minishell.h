@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 00:35:51 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:50:26 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_data
 	char				*t;
 	struct sigaction	sb;
 	int					ret;
+	int					*pid;
 	struct s_cmd *cmd;
 }	t_data;
 
@@ -118,8 +119,10 @@ void	handler(int sig);
 int		wh_typeit(t_cmd *cmd);
 void	red_in_main(t_cmd *cmd);
 void	error_norm(char *str);
-int	join_th_errors_re(char *s1, char *s2, char *s3, int ret);
+int		join_th_errors_re(char *s1, char *s2, char *s3, int ret);
 void	the_exit_code(void);
+void	declared_all(void);
+void	print_the_env(void);
 //---------------------
 void	get_command(int k, int j, int i);
 int		get_num_of_args_files(int i, int k);

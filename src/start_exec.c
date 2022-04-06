@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 11:17:03 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 00:57:49 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:51:55 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	is_builtins(t_cmd *cmd)
 	int	i;
 
 	i = 0;
+	g_data.ret = 0;
 	if (!strcmp("cd", cmd->command))
 		ft_cd(cmd->arg[0]);
 	else if (!strcmp("pwd", cmd->command))
@@ -30,14 +31,7 @@ void	is_builtins(t_cmd *cmd)
 	else if (!strcmp("exit", cmd->command))
 		ft_exit(cmd);
 	else if (!strcmp("env", cmd->command))
-	{
-		while (g_data.ev[i])
-		{
-			if (strchr(g_data.ev[i], '='))
-				printf("%s\n", g_data.ev[i]);
-			i++;
-		}
-	}
+		print_the_env();
 }
 
 void	for_one_command(void)
@@ -69,10 +63,9 @@ void	for_one_command(void)
 
 void	creat_child(int i)
 {
-	int	pid;
 
-	pid = fork();
-	if (!pid)
+	g_data.pid[i] = fork();
+	if (!g_data.pid[i])
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -92,8 +85,6 @@ void	start_exec(void)
 	int	i;
 
 	i = 0;
-	g_data.output = 1;
-	g_data.input = 0;
 	if (g_data.x == 0)
 	{
 		if (!is_there_herdoc())
@@ -101,9 +92,10 @@ void	start_exec(void)
 	}
 	else
 	{
-		g_data.pipe = malloc(sizeof(int) * g_data.x * 2);
+		
 		if (!is_there_herdoc())
 		{
+			declared_all();
 			while (i < g_data.x + 1)
 			{	
 				pipe(&g_data.pipe[g_data.output - 1]);
@@ -112,7 +104,7 @@ void	start_exec(void)
 			}
 			i = -1;
 			while (++i < (g_data.x + 1))
-				waitpid(-1, &g_data.ret, 0);
+				waitpid(g_data.pid[i], &g_data.ret, 0);
 			the_exit_code();
 		}
 	}

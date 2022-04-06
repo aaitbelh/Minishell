@@ -6,11 +6,24 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 11:55:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 01:19:54 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:51:28 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	print_the_env()
+{
+	int	i;
+
+	i = 0;
+	while (g_data.ev[i])
+	{
+		if (strchr(g_data.ev[i], '='))
+			printf("%s\n", g_data.ev[i]);
+		i++;
+	}
+}
 
 int	check_allnum(char *str)
 {

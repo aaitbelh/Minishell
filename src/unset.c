@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:42:20 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 01:42:39 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:49:56 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	unset(char **str)
 			if(check_the_syn(str[i]))
 			{
 				j = ret_indice_env(g_data.ev, str[i]);
-				printf("%d\n", i);
 				if (j != -1)
 					g_data.ev = delete_it(j);
 			}
