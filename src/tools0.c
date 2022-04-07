@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tools0.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:46:48 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/06 18:01:59 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/07 01:03:57 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 int	join_th_errors_re(char *s1, char *s2, char *s3, int ret)
 {
@@ -41,22 +40,23 @@ void	print_the_exp(void)
 	}
 }
 
-void	cpy_cmds(int i, int j, int k)
+int	cpy_cmds(int i, int j)
 {
 	int	x;
 
-	g_data.cmds[k] = malloc(sizeof(char ) * (i - j + 1));
+	g_data.cmds[g_data.index] = malloc(sizeof(char ) * (i - j + 1));
 	x = 0;
 	while (j != i)
-		g_data.cmds[k][x++] = g_data.line[j++];
-	g_data.cmds[k][x] = '\0';
+		g_data.cmds[g_data.index][x++] = g_data.line[j++];
+	g_data.cmds[g_data.index][x] = '\0';
+	g_data.index++;
+	return (i + 1);
 }
 
 void	get_cmds(char *line, int x)
 {
 	int	i;
 	int	j;
-	int	k;
 	int	t[2];
 
 	g_data.cmds = malloc(sizeof(char *) * (x + 2));
@@ -64,7 +64,7 @@ void	get_cmds(char *line, int x)
 	t[1] = 1;
 	i = 0;
 	j = 0;
-	k = 0;
+	g_data.index = 0;
 	while (line[i])
 	{
 		if (line[i] == 39)
@@ -72,17 +72,10 @@ void	get_cmds(char *line, int x)
 		if (line[i] == 34)
 			t[1] *= -1;
 		if (line[i] == '|' && t[0] + t[1] == 2)
-		{
-			cpy_cmds(i, j, k);
-			k++;
-			j = i + 1;
-		}
+			j = cpy_cmds(i, j);
 		if (line[i + 1] == 0)
-		{
-			cpy_cmds(i + 1, j, k);
-			k++;
-		}
+			cpy_cmds(i + 1, j);
 		i++;
 	}
-	g_data.cmds[k] = NULL;
+	g_data.cmds[g_data.index] = NULL;
 }

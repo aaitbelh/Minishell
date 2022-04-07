@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 00:59:44 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/03 17:00:33 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/07 02:12:37 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,5 @@ void	get_args_files_2(int i, int j, int k)
 	while (g_data.cmds[i][k] != ' ' && g_data.cmds[i][k] != '>'
 		&& g_data.cmds[i][k] != '<' && g_data.cmds[i][k])
 		k++;
-	get_args_files(i, k, b);
+	get_args_files(i, k, 0, b);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:42:20 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 17:49:56 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/07 02:15:50 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	unset(char **str)
 	{
 		while (str[i])
 		{
-			if(check_the_syn(str[i]))
+			if (check_the_syn(str[i]))
 			{
 				j = ret_indice_env(g_data.ev, str[i]);
 				if (j != -1)
