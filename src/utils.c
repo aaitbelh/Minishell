@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 18:13:34 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 01:00:21 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 03:54:02 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	syntax_check(char *str)
 		return (1);
 	while (string[0][i])
 	{
-		if ((!ft_isalnum(string[0][i]) && (string[0][i] != '_')))
+		if ((!ft_isalnum(string[0][i]) && (string[0][i] != '_'))
+			&& string[0][ft_strlen(string[0])] == '+')
 			return (1);
 		i++;
 	}

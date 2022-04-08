@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 00:43:36 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 04:06:22 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ void	print_the_env(void);
 void	print_the_exp(void);
 void	free_all_structs(void);
 int		ind_from_env(char **env, char *str);
+int		check_exist(char *str, int i, char **new_str);
+int		check_syn_pls(char *str);
+int		check_exist2(char *str, int i, char **new_str);
 //---------------------
 void	get_command(int k, int j, int i);
 int		get_num_of_args_files(int i, int k);

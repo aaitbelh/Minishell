@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 01:09:45 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/07 02:51:39 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/08 02:45:04 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	cpy_paste(int r)
 	while (j != i)
 		tmp[x++] = g_data.ev[r][j++];
 	tmp[x] = 0;
-	g_data.t = ft_strjoin(g_data.t, tmp);
+	g_data.t = ft_strjoin_gnl(g_data.t, tmp);
 	free(tmp);
 }
 
@@ -74,7 +74,7 @@ int	get_env_var(int i, int j, int p)
 		j++;
 	if (p == j)
 	{
-		g_data.t = ft_strjoin(g_data.t, "$");
+		g_data.t = ft_strjoin_gnl(g_data.t, "$");
 		return (j);
 	}
 	var = malloc(sizeof(char ) * (j - p + 1));
@@ -95,7 +95,7 @@ int	handle_env_var(int i, int j)
 	j++;
 	if (g_data.cmds[i][j] == '?')
 	{
-		g_data.t = ft_strjoin(g_data.t, ft_itoa(g_data.ret));
+		g_data.t = ft_strjoin_gnl(g_data.t, ft_itoa(g_data.ret));
 		return (j + 1);
 	}
 	p = j;

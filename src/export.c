@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 01:46:18 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 04:08:19 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,20 @@ char	*fix_for_plus(char *str)
 void	is_plus(char *str)
 {
 	int		i;
-	int		j;
 	char	**new_str;
-	char	**cmp;
-	char	*tmp;
 
 	i = 0;
-	j = 0;
-	while (str[j] != '=')
-		j++;
+	if (check_syn_pls(str))
+	{
+		join_th_errors_re("minishell: export: ", str,
+			": not valid inddentifier", 1);
+		return ;
+	}
 	new_str = ft_split(str, '+');
 	while (g_data.ev[i])
 	{
-		cmp = ft_split(g_data.ev[i], '=');
-		if (!strcmp(cmp[0], new_str[0]))
-		{
-			tmp = ft_substr(str, j + 1, ft_strlen(str));
-			g_data.ev[i] = ft_strjoin_gnl(g_data.ev[i], tmp);
-			twodfree(new_str);
-			twodfree(cmp);
-			free(str);
-			free(tmp);
+		if (check_exist(str, i, new_str))
 			return ;
-		}
-		twodfree(cmp);
 		i++;
 	}
 	twodfree(new_str);
@@ -99,7 +89,6 @@ void	add_bath_evx(char *string)
 {
 	int		i;
 	char	**path;
-	char	**env_path;
 	char	*str;
 
 	str = ft_strdup(string);
@@ -113,16 +102,8 @@ void	add_bath_evx(char *string)
 	i = 0;
 	while (g_data.ev[i])
 	{
-		env_path = ft_split(g_data.ev[i], '=');
-		if (!ft_strcmp(env_path[0], path[0]))
-		{
-			free(g_data.ev[i]);
-			twodfree(env_path);
-			twodfree(path);
-			g_data.ev[i] = str;
+		if (check_exist2(str, i, path))
 			return ;
-		}
-		twodfree(env_path);
 		i++;
 	}
 	twodfree(path);
