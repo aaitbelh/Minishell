@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:22:21 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 04:22:27 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:40:58 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,14 @@ int	wh_typeit(t_cmd *cmd)
 	return (0);
 }
 
-void	red_in_main(t_cmd *cmd)
+int	red_in_main(t_cmd *cmd)
 {
-	g_data.out = dup(1);
-	g_data.in = dup(0);
-	red_files(cmd, 0);
+	if (g_data.num_of_files[0] != 0)
+	{
+		g_data.out = dup(1);
+		g_data.in = dup(0);
+		if (red_files_main(cmd, 0))
+			return (1);
+	}
+	return (0);
 }

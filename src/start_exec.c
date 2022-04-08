@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 11:17:03 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 04:18:56 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:46:50 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ void	for_one_command(void)
 	}
 	else
 	{
-		if (g_data.num_of_files[0] != 0)
-			red_in_main(&g_data.cmd[0]);
+		if (red_in_main(&g_data.cmd[0]))
+		{
+			printf("i got inside here\n");
+			return ;
+		}
 		is_builtins(&g_data.cmd[0]);
 		dup2(g_data.out, 1);
 		dup2(g_data.in, 0);

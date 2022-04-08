@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 01:09:45 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/08 02:45:04 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:52:20 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,14 @@ int	get_env_var(int i, int j, int p)
 int	handle_env_var(int i, int j)
 {
 	int		p;
+	char	*str;
 
 	j++;
 	if (g_data.cmds[i][j] == '?')
 	{
-		g_data.t = ft_strjoin_gnl(g_data.t, ft_itoa(g_data.ret));
+		str = ft_itoa(g_data.ret);
+		g_data.t = ft_strjoin_gnl(g_data.t, str);
+		free(str);
 		return (j + 1);
 	}
 	p = j;

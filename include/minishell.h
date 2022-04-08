@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 04:06:22 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:37:15 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	handler(int sig);
 void	ft_error_ex(char *str, int Exit);
 int		is_there_space(char *str);
 char	*get_from_env(char *str, int size, int start);
-int		ft_join_error(char *s1, char *s2, int Exit);
+int		join_error(char *s1, char *s2, int Exit);
 void	ft_error_fd(char *str, int Exit);
 void	edit_oldpwd(void);
 void	ft_cd(char *path);
@@ -114,7 +114,7 @@ void	is_builtins(t_cmd *cmd);
 void	handler_2(int sig);
 void	handler(int sig);
 int		wh_typeit(t_cmd *cmd);
-void	red_in_main(t_cmd *cmd);
+int		red_in_main(t_cmd *cmd);
 void	error_norm(char *str);
 int		join_th_errors_re(char *s1, char *s2, char *s3, int ret);
 void	the_exit_code(void);
@@ -126,6 +126,7 @@ int		ind_from_env(char **env, char *str);
 int		check_exist(char *str, int i, char **new_str);
 int		check_syn_pls(char *str);
 int		check_exist2(char *str, int i, char **new_str);
+int		red_files_main(t_cmd *cmd, int i);
 //---------------------
 void	get_command(int k, int j, int i);
 int		get_num_of_args_files(int i, int k);

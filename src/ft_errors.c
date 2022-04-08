@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 13:20:04 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 18:02:14 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:32:08 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_error_ret(char *str, int ret)
 	return (ret);
 }
 
-int	ft_join_error(char *s1, char *s2, int Exit)
+int	join_error(char *s1, char *s2, int Exit)
 {
 	char	*err_msg;
 

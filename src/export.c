@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 04:08:19 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:13:00 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	is_plus(char *str)
 	{
 		join_th_errors_re("minishell: export: ", str,
 			": not valid inddentifier", 1);
+		free(str);
 		return ;
 	}
 	new_str = ft_split(str, '+');
