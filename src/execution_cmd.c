@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:04:47 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/01 17:50:22 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 01:40:37 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ int	is_command(t_cmd *cmd, int i)
 	cmd_path = ft_check_acs(g_data.ev, cmd->command);
 	cmd->arg = fix_command(cmd->command, cmd->arg);
 	if ((execve(cmd_path, cmd->arg, g_data.ev)) == -1)
-		return (0);
+	{
+		perror("minishell");
+		exit (0);
+	}
 	return (0);
 }

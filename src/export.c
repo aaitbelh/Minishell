@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 00:05:06 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 01:46:18 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ char	*fix_for_plus(char *str)
 	j = 0;
 	i = 0;
 	ind = 0;
-	while(str[ind] != '+')
+	while (str[ind] != '+')
 		ind++;
 	new_str = malloc(sizeof(char ) * ft_strlen(str));
-	while(str[i])
+	while (str[i])
 	{
-		if(i != ind)
+		if (i != ind)
 		{
 			new_str[j] = str[i];
 			j++;
@@ -52,7 +52,6 @@ void	is_plus(char *str)
 	while (str[j] != '=')
 		j++;
 	new_str = ft_split(str, '+');
-	
 	while (g_data.ev[i])
 	{
 		cmp = ft_split(g_data.ev[i], '=');
@@ -109,7 +108,7 @@ void	add_bath_evx(char *string)
 	{
 		is_plus(str);
 		twodfree(path);
-		return ;	
+		return ;
 	}
 	i = 0;
 	while (g_data.ev[i])
