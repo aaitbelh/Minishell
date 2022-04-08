@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:22:21 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 17:56:07 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/07 23:38:03 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	the_exit_code(void)
 		g_data.ret = 130;
 	else
 		g_data.ret = WEXITSTATUS(g_data.ret);
+	free(g_data.pipe);
+	free(g_data.pid);
 }
 
 void	handler_2(int sig)

@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/06 00:55:22 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 00:14:26 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_cd(char *path)
 		}
 		if (env && ft_strlen("HOME=") != ft_strlen(env))
 			go_to_env(env);
-		edit_pwd();
+		// edit_pwd();
 		free(env);
 	}
 	else

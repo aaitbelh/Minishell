@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/07 02:59:17 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/07 23:35:57 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_data
 	char				**ev;
 	int					n;
 	char				**exp;
-	int					*pipe;
 	int					input;
 	int					output;
 	int					in;
@@ -67,6 +66,7 @@ typedef struct s_data
 	struct sigaction	sb;
 	int					ret;
 	int					*pid;
+	int					*pipe;
 	struct s_cmd		*cmd;
 	int					index;
 }	t_data;
@@ -121,6 +121,7 @@ void	the_exit_code(void);
 void	declared_all(void);
 void	print_the_env(void);
 void	print_the_exp(void);
+void	free_all_structs(void);
 //---------------------
 void	get_command(int k, int j, int i);
 int		get_num_of_args_files(int i, int k);

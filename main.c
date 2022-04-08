@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/07 03:10:11 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/08 00:27:59 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	g_data.ev = cpy_env(env);
-	g_data.exp = cpy_exp(env);
+	g_data.exp = cpy_exp(g_data.ev);
 	g_data.sb.sa_handler = SIG_IGN;
 	g_data.sb.sa_flags = SA_RESTART;
 	g_data.sa.sa_flags = SA_RESTART;
@@ -98,9 +98,13 @@ int	main(int ac, char **av, char **env)
 			if (!is_there_space(g_data.line))
 			{
 				if (parse_line(g_data.line) != 0)
+				{
 					start_exec();
+					free_all_structs();
+				}
 			}	
 		}
+		free(g_data.line);
 	}
 	return (0);
 }
