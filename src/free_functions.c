@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 16:06:58 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 04:12:12 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 19:56:52 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,28 @@ void	free_all_structs(void)
 		}
 		free(g_data.cmd[i].file);
 		i++;
+	}
+	twodfree(g_data.cmds);
+	free(g_data.num_of_args);
+	free(g_data.num_of_files);
+	free(g_data.cmd);
+}
+
+void	free_all_struct_2(int i)
+{
+	int	j;
+
+	while (--i >= 0)
+	{
+		j = 0;
+		free(g_data.cmd[i].command);
+		twodfree(g_data.cmd[i].arg);
+		while (j < g_data.num_of_files[i])
+		{
+			free(g_data.cmd[i].file[j].file_name);
+			j++;
+		}
+		free(g_data.cmd[i].file);
 	}
 	twodfree(g_data.cmds);
 	free(g_data.num_of_args);

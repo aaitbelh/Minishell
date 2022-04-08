@@ -6,7 +6,7 @@
 /*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 14:17:04 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/03 16:17:33 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/08 19:53:15 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	check_error(int i, int k)
 		printf("minishell: syntax error near unexpected token `<'\n");
 		g_data.num_of_args[i] = 0;
 		g_data.num_of_files[i] = 0;
+		free_all_struct_2(i);
 		return (0);
 	}
 	if (g_data.cmds[i][k] == '<' && g_data.cmds[i][k + 1] == '>')
@@ -26,6 +27,7 @@ int	check_error(int i, int k)
 		printf("minishell: syntax error near unexpected token `>'\n");
 		g_data.num_of_args[i] = 0;
 		g_data.num_of_files[i] = 0;
+		free_all_struct_2(i);
 		return (0);
 	}
 	return (1);
@@ -38,6 +40,7 @@ int	check_error_2(int i, int k)
 		printf("minishell: syntax error near unexpected token `>'\n");
 		g_data.num_of_args[i] = 0;
 		g_data.num_of_files[i] = 0;
+		free_all_struct_2(i);
 		return (0);
 	}
 	if (g_data.cmds[i][k] == '<')
@@ -45,6 +48,7 @@ int	check_error_2(int i, int k)
 		printf("minishell: syntax error near unexpected token `<'\n");
 		g_data.num_of_args[i] = 0;
 		g_data.num_of_files[i] = 0;
+		free_all_struct_2(i);
 		return (0);
 	}
 	if (!g_data.cmds[i][k])
@@ -52,6 +56,7 @@ int	check_error_2(int i, int k)
 		printf("minishell: syntax error near unexpected token `newline'\n");
 		g_data.num_of_args[i] = 0;
 		g_data.num_of_files[i] = 0;
+		free_all_struct_2(i);
 		return (0);
 	}
 	return (1);

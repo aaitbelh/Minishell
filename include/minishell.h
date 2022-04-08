@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 18:39:00 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 19:58:01 by alaajili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int		check_exist(char *str, int i, char **new_str);
 int		check_syn_pls(char *str);
 int		check_exist2(char *str, int i, char **new_str);
 int		red_files1(t_cmd *cmd, int i);
+void	free_all_struct_2(int i);
 //---------------------
 void	get_command(int k, int j, int i);
 int		get_num_of_args_files(int i, int k);
