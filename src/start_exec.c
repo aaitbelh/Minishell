@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 11:17:03 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 17:46:50 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:32:06 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,7 @@ void	for_one_command(void)
 		the_exit_code();
 	}
 	else
-	{
-		if (red_in_main(&g_data.cmd[0]))
-		{
-			printf("i got inside here\n");
-			return ;
-		}
-		is_builtins(&g_data.cmd[0]);
-		dup2(g_data.out, 1);
-		dup2(g_data.in, 0);
-	}
+		red_in_main(&g_data.cmd[0]);
 }
 
 void	creat_child(int i)
