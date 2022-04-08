@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:44:19 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 04:08:03 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 04:22:45 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_syn_pls(char *string)
 
 int	check_exist2(char *str, int i, char **path)
 {
-	char **env_path;
+	char	**env_path;
 
 	env_path = ft_split(g_data.ev[i], '=');
 	if (!ft_strcmp(env_path[0], path[0]))

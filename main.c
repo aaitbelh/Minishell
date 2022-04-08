@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 01:31:14 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 04:24:31 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,8 @@ int	parse_line(char *line)
 	return (1);
 }
 
-int	main(int ac, char **av, char **env)
+void	read_line(void)
 {
-	(void)ac;
-	(void)av;
-	g_data.ev = cpy_env(env);
-	g_data.exp = cpy_exp(g_data.ev);
-	g_data.sb.sa_handler = SIG_IGN;
-	g_data.sb.sa_flags = SA_RESTART;
-	g_data.sa.sa_flags = SA_RESTART;
-	sigaction(SIGQUIT, &g_data.sb, NULL);
 	while (1)
 	{
 		g_data.sa.sa_handler = &handler;
@@ -106,5 +98,18 @@ int	main(int ac, char **av, char **env)
 		}
 		free(g_data.line);
 	}
+}
+
+int	main(int ac, char **av, char **env)
+{
+	(void)ac;
+	(void)av;
+	g_data.ev = cpy_env(env);
+	g_data.exp = cpy_exp(g_data.ev);
+	g_data.sb.sa_handler = SIG_IGN;
+	g_data.sb.sa_flags = SA_RESTART;
+	g_data.sa.sa_flags = SA_RESTART;
+	sigaction(SIGQUIT, &g_data.sb, NULL);
+	read_line();
 	return (0);
 }
