@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 01:03:58 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/08 23:08:25 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_echo(char **str)
 	int	j;
 
 	i = 0;
-	while (str[i] && ft_strlen(str[0]) != 1)
+	while (str[i] && str[i + 1] && ft_strlen(str[0]) != 1)
 	{
 		j = 1;
 		while (str[i][j])

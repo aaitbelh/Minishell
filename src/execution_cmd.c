@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:04:47 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 01:40:37 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/09 00:05:27 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	**fix_command(char *cmd, char **args)
 	while (args && args[i])
 		i++;
 	new_arg = malloc(sizeof(char *) * (i + 2));
+	if (!new_arg)
+		reutrn (NULL);
 	i = 1;
 	new_arg[0] = ft_strdup(cmd);
 	while (args && args[i - 1])

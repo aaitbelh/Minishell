@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:42:20 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 00:42:13 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/09 00:05:57 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	**delete_it(int ind)
 	while (g_data.ev[i])
 		i++;
 	new_table = malloc(sizeof(char *) * i);
+	if (!new_table)
+		return (NULL);
 	i = 0;
 	while (g_data.ev[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 17:13:00 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/09 00:06:28 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*fix_for_plus(char *str)
 	while (str[ind] != '+')
 		ind++;
 	new_str = malloc(sizeof(char ) * ft_strlen(str));
+	if (!new_str)
+		return (NULL);
 	while (str[i])
 	{
 		if (i != ind)
@@ -73,6 +75,8 @@ char	**add_new(char *str)
 	while (g_data.ev[i])
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 2));
+	if (!new_env)
+		return (NULL);
 	i = 0;
 	while (g_data.ev[i])
 	{
