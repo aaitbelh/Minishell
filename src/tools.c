@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/09 00:02:31 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/10 21:04:45 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	single_qoutes(int i, int j)
 	while (g_data.cmds[i][j] != 39)
 		j++;
 	g_data.t = malloc(sizeof(char ) * (j - p + 1));
+	if (!g_data.t)
+		return (0);
 	while (p != j)
 		g_data.t[x++] = g_data.cmds[i][p++];
 	g_data.t[x] = 0;
@@ -53,6 +55,8 @@ int	double_qoutes(int i, int j)
 		while (g_data.cmds[i][j] != '$' && g_data.cmds[i][j] != 34)
 			j++;
 		tmp = malloc(sizeof(char ) * (j - p + 1));
+		if (!tmp)
+			return (0);
 		tmp = cpy_tmp(i, j, p, tmp);
 		g_data.t = ft_strjoin_gnl(g_data.t, tmp);
 		free(tmp);
@@ -75,6 +79,8 @@ int	without_qoutes(int i, int j, int k)
 			&& g_data.cmds[i][j] != 39 && j < k)
 			j++;
 		tmp = malloc(sizeof(char ) * (j - p + 1));
+		if (!tmp)
+			return (0);
 		tmp = cpy_tmp(i, j, p, tmp);
 		g_data.t = ft_strjoin_gnl(g_data.t, tmp);
 		free(tmp);

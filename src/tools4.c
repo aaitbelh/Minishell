@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 00:59:44 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/08 19:49:52 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/10 21:08:46 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	get_args_files_2(int i, int j, int k)
 
 	g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args[i] + 1));
 	g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files[i]));
+	if (!g_data.cmd[i].arg || !g_data.cmd[i].file)
+		return ;
 	b = 0;
 	while (k != j)
 	{	

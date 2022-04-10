@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 04:24:31 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/10 21:02:45 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	continue_parse(int *t, char *line)
 		g_data.cmd = malloc(sizeof(t_cmd) * (g_data.x + 1));
 		g_data.num_of_args = malloc(sizeof(int ) * (g_data.x + 1));
 		g_data.num_of_files = malloc(sizeof(int ) * (g_data.x + 1));
+		if (!g_data.cmd || !g_data.num_of_files || !g_data.num_of_args)
+			return (0);
 		get_cmds(line, g_data.x);
 		if (handle_cmds() == 0)
 			return (0);

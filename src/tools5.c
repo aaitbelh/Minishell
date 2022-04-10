@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 01:09:45 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/08 17:52:20 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/10 21:15:14 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ int	is_in_env(char *var)
 	int		j;
 	char	*tmp;
 
-	i = 0;
-	while (g_data.ev[i])
+	i = -1;
+	while (g_data.ev[++i])
 	{
 		j = 0;
 		while (g_data.ev[i][j] != '=')
 			j++;
 		tmp = malloc(sizeof(char ) * (j + 1));
+		if (!tmp)
+			return (0);
 		j = -1;
 		while (g_data.ev[i][++j] != '=')
 			tmp[j] = g_data.ev[i][j];
@@ -35,7 +37,6 @@ int	is_in_env(char *var)
 			return (i);
 		}
 		free(tmp);
-		i++;
 	}
 	return (-1);
 }
@@ -56,6 +57,8 @@ void	cpy_paste(int r)
 	while (g_data.ev[r][i])
 		i++;
 	tmp = malloc(sizeof(char ) * (i - j + 1));
+	if (!tmp)
+		return ;
 	while (j != i)
 		tmp[x++] = g_data.ev[r][j++];
 	tmp[x] = 0;
@@ -78,6 +81,8 @@ int	get_env_var(int i, int j, int p)
 		return (j);
 	}
 	var = malloc(sizeof(char ) * (j - p + 1));
+	if (!var)
+		return (0);
 	while (p != j)
 		var[x++] = g_data.cmds[i][p++];
 	var[x] = 0;

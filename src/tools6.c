@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools6.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 02:57:09 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/07 03:03:40 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/10 21:12:42 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	init_data(int i, int k)
 		return (0);
 	g_data.cmd[i].arg = malloc(sizeof(char *) * (g_data.num_of_args[i] + 1));
 	g_data.cmd[i].file = malloc(sizeof(t_file) * (g_data.num_of_files[i]));
+	if (!g_data.cmd[i].arg || !g_data.cmd[i].file)
+		return (0);
 	return (1);
 }
 

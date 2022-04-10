@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools0.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:46:48 by alaajili          #+#    #+#             */
-/*   Updated: 2022/04/07 01:03:57 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/10 21:06:12 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	cpy_cmds(int i, int j)
 	int	x;
 
 	g_data.cmds[g_data.index] = malloc(sizeof(char ) * (i - j + 1));
+	if (!g_data.cmds[g_data.index])
+		return (0);
 	x = 0;
 	while (j != i)
 		g_data.cmds[g_data.index][x++] = g_data.line[j++];
@@ -60,6 +62,8 @@ void	get_cmds(char *line, int x)
 	int	t[2];
 
 	g_data.cmds = malloc(sizeof(char *) * (x + 2));
+	if (!g_data.cmds)
+		return ;
 	t[0] = 1;
 	t[1] = 1;
 	i = 0;
