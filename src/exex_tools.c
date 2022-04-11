@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:36:56 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/09 00:05:44 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/11 04:27:47 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	declared_all(void)
 {
-	g_data.pid = malloc(sizeof(int ) * (g_data.x + 1));
-	if (!g_data.pid)
-		return ;
 	g_data.pipe = malloc(sizeof(int ) * g_data.x * 2);
 	if (!g_data.pipe)
+		return ;
+	g_data.pid = malloc(sizeof(int ) * (g_data.x + 1));
+	if (!g_data.pid)
 		return ;
 	g_data.output = 1;
 	g_data.input = 0;
