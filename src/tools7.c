@@ -6,11 +6,18 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:44:19 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 04:22:45 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:18:25 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	check_valid(void)
+{
+	if (access(g_data.cmd_ex, F_OK != 0))
+		join_th_errors("minishell: ", &g_data.cmd_ex[1],
+			": command not found", 127);
+}
 
 int	check_syn_pls(char *string)
 {

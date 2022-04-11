@@ -6,7 +6,7 @@
 /*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:51:42 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 01:21:26 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:18:35 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,22 @@ char	*ft_check_acs(char **env, char *cmd)
 
 	if (check_is_path(cmd))
 		return (cmd);
-	cmd = ft_strjoin("/", cmd);
-	string = fin_and_split(env, cmd);
+	g_data.cmd_ex = ft_strjoin("/", cmd);
+	string = fin_and_split(env, g_data.cmd_ex);
 	j = 0;
 	while (string[j])
 	{
-		check = ft_strjoin(string[j], cmd);
+		check = ft_strjoin(string[j], g_data.cmd_ex);
 		if (!access(check, X_OK))
 		{
-			free(cmd);
+			free(g_data.cmd_ex);
 			free_all(string);
 			return (check);
 		}
 		j++;
 		free(check);
 	}
+	check_valid();
 	free_all(string);
-	if (access(cmd, F_OK != 0))
-		join_th_errors("minishell: ", &cmd[1], ": command not found", 127);
 	return (NULL);
 }

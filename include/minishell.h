@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaajili <alaajili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 19:58:01 by alaajili         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:19:37 by aaitbelh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_data
 	int					*pipe;
 	struct s_cmd		*cmd;
 	int					index;
+	char				*cmd_ex;
 }	t_data;
 
 char	**cpy_env(char **str);
@@ -146,5 +147,6 @@ int		double_qoutes(int i, int j);
 int		single_qoutes(int i, int j);
 int		handle_env_var(int i, int j);
 int		handle_cmds(void);
+void	check_valid(void);
 
 #endif
