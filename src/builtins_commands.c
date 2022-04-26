@@ -38,17 +38,16 @@ void	ft_echo(char **str)
 	int	j;
 
 	i = 0;
-	while (str[i] && str[i + 1] && ft_strlen(str[0]) != 1)
+	j = 0;
+	while (str[i])
 	{
-		j = 1;
-		while (str[i][j])
-		{
-			if (str[i][0] != '-' || str[i][j] != 'n')
-				break ;
-			j++;
-		}
-		if (str[i][j])
-			break ;
+		j = 0;
+		if (str[i][j] == '-' && str[i][j + 1])
+			while(str[i][++j] == 'n')
+				if(str[i][j] != 'n')
+					break;
+		if(str[i][j])
+			break;
 		i++;
 	}
 	j = i;
