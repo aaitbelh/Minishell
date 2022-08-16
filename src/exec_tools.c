@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:22:21 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 18:37:37 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:14:54 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	handler(int sig)
 	(void)sig;
 	printf("\n");
 	rl_on_new_line();
-	rl_replace_line("", 0);
 	rl_redisplay();
 }
 

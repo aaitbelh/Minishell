@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/11 18:19:37 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:16:09 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <errno.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 # include "../libft/libft.h"
 
 # define IN 0
@@ -29,7 +31,7 @@
 # define HERDOC 2
 # define APPOUT 3
 
-struct s_data	g_data;
+extern struct s_data	g_data;
 
 typedef struct s_file
 {
@@ -73,7 +75,6 @@ typedef struct s_data
 }	t_data;
 
 char	**cpy_env(char **str);
-void	rl_replace_line(char *text, int clear_undo);
 void	handler(int sig);
 void	ft_error_ex(char *str, int Exit);
 int		is_there_space(char *str);

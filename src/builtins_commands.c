@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 23:08:25 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:58:45 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,19 @@ void	ft_print_it(char **str, int i)
 void	ft_pwd(void)
 {
 	char	*path;
+	int			i;
 
 	path = getcwd(NULL, 0);
+	if(!path)
+	{
+
+		i = ind_from_env(g_data.ev, "PWD");
+		if (i == -1)
+			printf("9AWITI\n");
+		else
+			printf("%s\n", g_data.ev[i] + 4);
+		return ;
+	}
 	printf("%s\n", path);
 	free(path);
 }
@@ -76,7 +87,6 @@ void	ft_cd(char *path)
 		}
 		if (env && ft_strlen("HOME=") != ft_strlen(env))
 			go_to_env(env);
-		edit_pwd();
 		free(env);
 	}
 	else

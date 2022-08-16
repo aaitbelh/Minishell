@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_command2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 21:46:37 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 18:39:06 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/08/15 19:06:18 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ void	go_to_env(char *path)
 	ret = chdir(path);
 	if (ENOENT == errno)
 		join_error("Minishell : cd: ", path, 1);
-	else if (ret < 0)
+	if (ret < 0)
 		join_error("Minishell : cd: ", path, 1);
 	edit_pwd();
+
 }
 
 int	ft_exit(t_cmd *cmd)

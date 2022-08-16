@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:26:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/09 00:06:28 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:26:51 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,9 @@ int	ft_export(char **path)
 				": not valid inddentifier", 1);
 		}
 		else
+		{
 			add_bath_evx(path[i]);
+		}
 		i++;
 	}
 	return (0);

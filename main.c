@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/11 18:04:05 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:14:24 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
+
+
+struct s_data	g_data;
 
 int	pipe_error(char *line, int i)
 {

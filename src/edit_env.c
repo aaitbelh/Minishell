@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   edit_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 11:47:09 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/08 00:51:20 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:50:00 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 int	ind_from_env(char **env, char *str)
 {
 	int	i;
@@ -31,8 +30,19 @@ void	edit_oldpwd(void)
 	int		i;
 	char	*old_path;
 	char	*old_pwd;
+	char	**tmp;
 
 	old_path = getcwd(NULL, 0);
+	if(!old_path)
+		old_path = ft_strdup("");
+	i = ind_from_env(g_data.ev, "OLDPWD=");
+	if(i == -1)
+	{
+		tmp = malloc(sizeof(char *) * 2);
+		tmp[0] = ft_strdup("OLDPWD=");
+		tmp[1] = NULL;
+		ft_export(tmp);
+	}
 	i = ind_from_env(g_data.ev, "OLDPWD=");
 	old_pwd = ft_strjoin("OLDPWD=", old_path);
 	free(old_path);
