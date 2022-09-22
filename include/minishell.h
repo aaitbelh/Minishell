@@ -6,7 +6,7 @@
 /*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:11:28 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/08/15 18:16:09 by casper           ###   ########.fr       */
+/*   Updated: 2022/09/22 11:54:55 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct s_data
 	int					*num_of_args;
 	char				*line;
 	char				*word;
+	char				*old_path;
+	char				*old_pwd;
 	char				**cmds;
 	char				*t;
 	struct sigaction	sb;

@@ -6,7 +6,7 @@
 /*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 11:47:09 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/08/15 18:50:00 by casper           ###   ########.fr       */
+/*   Updated: 2022/09/22 12:09:16 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,18 @@ int	ind_from_env(char **env, char *str)
 void	edit_oldpwd(void)
 {
 	int		i;
-	char	*old_path;
-	char	*old_pwd;
 	char	**tmp;
 
-	old_path = getcwd(NULL, 0);
-	if(!old_path)
-		old_path = ft_strdup("");
 	i = ind_from_env(g_data.ev, "OLDPWD=");
 	if(i == -1)
 	{
-		tmp = malloc(sizeof(char *) * 2);
-		tmp[0] = ft_strdup("OLDPWD=");
+		tmp[0] = "OLDPWD=";
 		tmp[1] = NULL;
 		ft_export(tmp);
 	}
 	i = ind_from_env(g_data.ev, "OLDPWD=");
-	old_pwd = ft_strjoin("OLDPWD=", old_path);
-	free(old_path);
 	free(g_data.ev[i]);
-	g_data.ev[i] = ft_strdup(old_pwd);
-	free(old_pwd);
+	g_data.ev[i] = ft_strdup(g_data.old_pwd);
 }
 
 void	edit_pwd(void)
@@ -58,6 +49,13 @@ void	edit_pwd(void)
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
+	if(!pwd)
+		pwd = ft_strdup(g_data.old_path);
+	else
+	{
+		free(g_data.old_path);
+		g_data.old_path = ft_strdup(pwd);
+	}
 	i = ind_from_env(g_data.ev, "PWD=");
 	new_pwd = ft_strjoin("PWD=", pwd);
 	free(g_data.ev[i]);

@@ -6,7 +6,7 @@
 /*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 21:46:37 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/08/15 19:06:18 by casper           ###   ########.fr       */
+/*   Updated: 2022/09/22 11:06:29 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	go_to_env(char *path)
 
 	edit_oldpwd();
 	ret = chdir(path);
-	if (ENOENT == errno)
-		join_error("Minishell : cd: ", path, 1);
 	if (ret < 0)
 		join_error("Minishell : cd: ", path, 1);
 	edit_pwd();

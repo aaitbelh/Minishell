@@ -6,7 +6,7 @@
 /*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:22:21 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/08/15 18:14:54 by casper           ###   ########.fr       */
+/*   Updated: 2022/09/22 10:31:30 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	the_exit_code(void)
 	else
 		g_data.ret = WEXITSTATUS(g_data.ret);
 	if (g_data.x != 0)
-	{
 		free(g_data.pipe);
-		free(g_data.pid);
-	}
 }
 
 void	handler_2(int sig)

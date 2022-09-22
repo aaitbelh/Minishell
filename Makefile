@@ -16,7 +16,7 @@ all : $(Name)
 
 $(Name): $(OBJS)
 	make -C libft
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -L/Users/aaitbelh/.brew/opt/readline/lib -I/Users/aaitbelh/.brew/opt/readline/include  $(LIBFT) -o $(Name)
+	$(CC) $(CFLAGS) $(OBJS) -lreadline $(LIBFT) -o $(Name)
 
 clean :
 	make -C libft clean

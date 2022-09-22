@@ -6,7 +6,7 @@
 /*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:49:49 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/08/15 18:14:24 by casper           ###   ########.fr       */
+/*   Updated: 2022/09/22 11:56:47 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	g_data.ev = cpy_env(env);
 	g_data.exp = cpy_exp(g_data.ev);
+	g_data.old_path = getcwd(NULL, 0);
+	g_data.old_pwd = ft_strdup(g_data.ev[ind_from_env(g_data.ev, "OLDPWD=")]);
 	g_data.sb.sa_handler = SIG_IGN;
 	g_data.sb.sa_flags = SA_RESTART;
 	g_data.sa.sa_flags = SA_RESTART;

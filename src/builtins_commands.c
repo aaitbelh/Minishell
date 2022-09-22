@@ -6,7 +6,7 @@
 /*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:25 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/08/15 18:58:45 by casper           ###   ########.fr       */
+/*   Updated: 2022/09/22 11:05:52 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,12 @@ void	ft_pwd(void)
 	int			i;
 
 	path = getcwd(NULL, 0);
-	if(!path)
+	if(path)
 	{
-
-		i = ind_from_env(g_data.ev, "PWD");
-		if (i == -1)
-			printf("9AWITI\n");
-		else
-			printf("%s\n", g_data.ev[i] + 4);
-		return ;
+		free(g_data.old_path);
+		g_data.old_path = ft_strdup(path);
 	}
-	printf("%s\n", path);
+	printf("%s\n", g_data.old_path);
 	free(path);
 }
 
@@ -73,7 +68,6 @@ void	ft_cd(char *path)
 
 	if (!path)
 	{
-		edit_oldpwd();
 		env = get_from_env("HOME=", 5, 5);
 		if (!env)
 		{

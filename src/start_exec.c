@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaitbelh <aaitbelh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casper <casper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 11:17:03 by aaitbelh          #+#    #+#             */
-/*   Updated: 2022/04/11 17:59:54 by aaitbelh         ###   ########.fr       */
+/*   Updated: 2022/09/22 10:21:29 by casper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	start_exec(void)
 			i = -1;
 			while (++i < (g_data.x + 1))
 				waitpid(g_data.pid[i], &g_data.ret, 0);
+			if(i != 0)
+				free(g_data.pid);
 			the_exit_code();
 		}
 	}
